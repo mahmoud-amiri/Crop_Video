@@ -1,0 +1,6 @@
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.vinfo
+@use crop_video_axis_snk_pkg_hdl.vinfo
++incdir+@vinfodir
+src/crop_video_axis_snk_if.sv
+src/crop_video_axis_snk_driver_bfm.sv
+src/crop_video_axis_snk_monitor_bfm.sv

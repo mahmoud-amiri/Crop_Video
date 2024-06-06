@@ -12,30 +12,30 @@ uvmf:
       ports:
       - name: crop_x
         dir: output
-        width: 16
+        width: '16'
       - name: crop_y
         dir: output
-        width: 16
+        width: '16'
       - name: crop_width
         dir: output
-        width: 16
+        width: '16'
       - name: crop_height
         dir: output
-        width: 16
+        width: '16'
       response_info:
         data: []
         operation: 1'b0
       transaction_constraints:
       - name: crop_x_c
-        value: '{ crop_x inside {[1:1919]} }; '
+        value: '{ crop_x inside {[1:1919]};}; '
       - name: crop_y_c
-        value: '{ crop_y inside {[1:1079]} }; '
+        value: '{ crop_y inside {[1:1079]}; }; '
       - name: crop_width_c
-        value: '{ crop_width < 1920 - crop_x }; '
+        value: '{ crop_width inside {[1:1920 - crop_x]}; }; '
       - name: crop_height_c
-        value: '{ crop_height < 1080 - crop_y }; '
+        value: '{ crop_height inside {[1:1080 - crop_y]}; }; '
       - name: solve_c
-        value: '{ solve crop_x_c before crop_width_c; solve crop_y_c before crop_height_c;}; '  
+        value: '{ solve crop_x before crop_width; solve crop_y before crop_height;}; '  
       transaction_vars:
       - name: crop_x
         type: bit [16-1:0]

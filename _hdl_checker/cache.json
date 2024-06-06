@@ -126,6 +126,11 @@
   ],
   "_added_libraries": [
    {
+    "name": "work",
+    "case_sensitive": false,
+    "__class__": "Identifier"
+   },
+   {
     "name": "not_in_project",
     "case_sensitive": true,
     "__class__": "Identifier"
@@ -1516,6 +1521,25 @@
     "locations": [
      [
       3,
+      8
+     ]
+    ],
+    "__class__": "VerilogDesignUnit"
+   },
+   {
+    "owner": {
+     "name": "d:\\GitHub\\Crop_Video\\tb\\uvmf\\verification_ip\\environment_packages\\crop_video_env_pkg\\crop_video_env_pkg.sv",
+     "__class__": "Path"
+    },
+    "type_": "package",
+    "name": {
+     "name": "crop_video_env_pkg",
+     "case_sensitive": true,
+     "__class__": "VerilogIdentifier"
+    },
+    "locations": [
+     [
+      20,
       8
      ]
     ],

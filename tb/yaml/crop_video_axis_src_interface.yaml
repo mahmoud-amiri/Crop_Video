@@ -12,6 +12,9 @@ uvmf:
       - name: crop_video_axis_src_C_M00_AXIS_TDATA_WIDTH
         type: int
         value: '32'
+      - name: crop_video_axis_src_C_M00_AXIS_TDATA_WIDTH_8
+        type: int
+        value: '4'  
       - name: crop_video_axis_src_C_M00_AXIS_START_COUNT
         type: int
         value: '32'
@@ -39,34 +42,26 @@ uvmf:
         width: crop_video_axis_src_C_M00_AXIS_TDATA_WIDTH
       - name: m00_axis_tstrb
         dir: input
-        width: crop_video_axis_src_C_M00_AXIS_TDATA_WIDTH/8
+        width: crop_video_axis_src_C_M00_AXIS_TDATA_WIDTH_8
       response_info:
         data: []
         operation: 1'b0
       transaction_constraints: []
       transaction_vars:
-      - name: m00_axis_aclk
-        type: bit [1-1:0]
-        iscompare: 'True'
-        isrand: 'False'
-      - name: m00_axis_aresetn
-        type: bit [1-1:0]
-        iscompare: 'True'
-        isrand: 'False'
       - name: m00_axis_tready
-        type: bit [1-1:0]
+        type: bit
         iscompare: 'True'
         isrand: 'False'
       - name: m00_axis_tvalid
-        type: bit [1-1:0]
+        type: bit
         iscompare: 'True'
         isrand: 'False'
       - name: m00_axis_tlast
-        type: bit [1-1:0]
+        type: bit
         iscompare: 'True'
         isrand: 'False'
       - name: m00_axis_tuser
-        type: bit [1-1:0]
+        type: bit
         iscompare: 'True'
         isrand: 'False'
       - name: m00_axis_tdata
@@ -74,6 +69,6 @@ uvmf:
         iscompare: 'True'
         isrand: 'False'
       - name: m00_axis_tstrb
-        type: bit [(crop_video_axis_src_C_M00_AXIS_TDATA_WIDTH/8)-1:0]
+        type: bit [crop_video_axis_src_C_M00_AXIS_TDATA_WIDTH_8-1:0]
         iscompare: 'True'
         isrand: 'False'
