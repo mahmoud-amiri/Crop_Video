@@ -1,0 +1,12 @@
+uvmf:
+  util_components:
+    crop_video_predictor:
+      analysis_exports:
+      - name: crop_video_config_agent_ae
+        type: 'crop_video_config_transaction #()'
+      - name: crop_video_axis_snk_agent_ae
+        type: 'crop_video_axis_snk_transaction #()'
+      analysis_ports:
+      - name: crop_video_sb_ap
+        type: 'crop_video_axis_src_transaction #()'
+      type: predictor

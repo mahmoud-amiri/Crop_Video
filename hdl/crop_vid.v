@@ -21,7 +21,7 @@
         input wire [15:0] crop_x,
         input wire [15:0] crop_y,
         input wire [15:0] crop_width,
-        input wire [15:0] crop_height
+        input wire [15:0] crop_height,
 		// User ports ends
 		// Do not modify the ports beyond this line
 

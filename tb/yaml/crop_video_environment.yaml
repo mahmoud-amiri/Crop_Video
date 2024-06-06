@@ -1,0 +1,35 @@
+uvmf:
+  environments:
+    crop_video:
+      agents:
+      - name: crop_video_config_agent
+        type: crop_video_config
+        initiator_responder: "INITIATOR"
+      - name: crop_video_axis_snk_agent
+        type: crop_video_axis_snk
+        initiator_responder: "INITIATOR"
+      - name: crop_video_axis_src_agent
+        type: crop_video_axis_src
+        initiator_responder: "RESPONDER"
+      analysis_components:
+      - name: crop_video_pred
+        type: crop_video_predictor
+      analysis_exports: []
+      analysis_ports: []
+      config_constraints: []
+      config_vars: []
+      parameters: []
+      scoreboards:
+      - name: crop_video_sb
+        sb_type: uvmf_in_order_scoreboard
+        trans_type: crop_video_axis_src_transaction
+      subenvs: []
+      tlm_connections:  
+      - driver: crop_video_config_agent.monitored_ap
+        receiver: crop_video_pred.crop_video_config_agent_ae
+      - driver: crop_video_axis_snk_agent.monitored_ap
+        receiver: crop_video_pred.crop_video_axis_snk_agent_ae  
+      - driver: crop_video_pred.crop_video_sb_ap
+        receiver: crop_video_sb.expected_analysis_export
+      - driver: crop_video_axis_src_agent.monitored_ap
+        receiver: crop_video_sb.actual_analysis_export

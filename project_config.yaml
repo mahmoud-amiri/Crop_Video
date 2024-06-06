@@ -1,12 +1,15 @@
 project:
-  name: "FPGA Project"
-  description: "This is an FPGA project containing VHDL and Verilog code."
+  name: "Crop video"
+  description: "This project contains crop video HDL and testbench files"
   hierarchy:
     - module_name: "Top module"
       files:
-        - path: "hdl/Top_module.v"
+        - path: "hdl/crop_vid.v"
       submodules:
-        - module_name: "module2"
+        - module_name: "M00_AXIS"
           files:
-            - path: "hdl/module2.v"
+            - path: "hdl/M00_AXIS.v"
+        - module_name: "S00_AXIS"
+          files:
+            - path: "hdl/S00_AXIS.v"    
         
