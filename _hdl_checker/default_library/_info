@@ -1,0 +1,77 @@
+m255
+K4
+z2
+!s11f vlog 2021.1 2021.01, Jan 19 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dd:/GitHub/Crop_Video
+vcrop
+!s110 1717657352
+!i10b 1
+!s100 ?jdHN:j;P;Q`Ni]F3jIa51
+IhPK:z3`fnIjMEz:hRK;jF1
+R0
+w1717657351
+8C:\Users\mamir\AppData\Local\Temp\tmp49p7oeb3.v
+FC:\Users\mamir\AppData\Local\Temp\tmp49p7oeb3.v
+!i122 31
+Z1 L0 4 72
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 OL;L;2021.1;73
+r1
+!s85 0
+31
+!s108 1717657352.000000
+!s107 C:\Users\mamir\AppData\Local\Temp\tmp49p7oeb3.v|
+!s90 -modelsimini|d:\GitHub\Crop_Video\_hdl_checker\modelsim.ini|-quiet|-work|d:\GitHub\Crop_Video\_hdl_checker\default_library|-lint|-hazards|-pedanticerrors|-L|default_library|C:\Users\mamir\AppData\Local\Temp\tmp49p7oeb3.v|
+!i113 0
+Z4 o-quiet -work {d:\GitHub\Crop_Video\_hdl_checker\default_library} -lint -hazards -pedanticerrors -L default_library -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z5 tCvgOpt 0
+vcrop_vid
+!s110 1717657908
+!i10b 1
+!s100 K`Ca_1@zb[nGPld6@AjFj1
+IQ`8`A^A<>N_SP_UAf>MgN3
+R0
+w1717657907
+8C:\Users\mamir\AppData\Local\Temp\tmphcl8tbev.v
+FC:\Users\mamir\AppData\Local\Temp\tmphcl8tbev.v
+!i122 51
+R1
+R2
+R3
+r1
+!s85 0
+31
+!s108 1717657908.000000
+!s107 C:\Users\mamir\AppData\Local\Temp\tmphcl8tbev.v|
+!s90 -modelsimini|d:\GitHub\Crop_Video\_hdl_checker\modelsim.ini|-quiet|-work|d:\GitHub\Crop_Video\_hdl_checker\default_library|-lint|-hazards|-pedanticerrors|-L|default_library|C:\Users\mamir\AppData\Local\Temp\tmphcl8tbev.v|
+!i113 0
+R4
+R5
+vmyipas_v1_0
+!s110 1717657339
+!i10b 1
+!s100 :eFX_CJ97nJU[][TNF5Pz2
+I4cjhnYX6o16c6V]_:eGGJ0
+R0
+w1717657337
+8d:\GitHub\Crop_Video\hdl\crop_vid.v
+Fd:\GitHub\Crop_Video\hdl\crop_vid.v
+!i122 27
+R1
+R2
+R3
+r1
+!s85 0
+31
+!s108 1717657339.000000
+!s107 d:\GitHub\Crop_Video\hdl\crop_vid.v|
+!s90 -modelsimini|d:\GitHub\Crop_Video\_hdl_checker\modelsim.ini|-quiet|-work|d:\GitHub\Crop_Video\_hdl_checker\default_library|-lint|-hazards|-pedanticerrors|-L|default_library|d:\GitHub\Crop_Video\hdl\crop_vid.v|
+!i113 0
+R4
+R5

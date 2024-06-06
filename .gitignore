@@ -1,0 +1,9 @@
+# Ignore Folder
+vivado/
+vitis/
+.Xil/
+.matool/
+cons/README.md
+hls/README.md
+user_ip/README.md
+xil_ip/README.md

@@ -1,0 +1,12 @@
+project:
+  name: "FPGA Project"
+  description: "This is an FPGA project containing VHDL and Verilog code."
+  hierarchy:
+    - module_name: "Top module"
+      files:
+        - path: "hdl/Top_module.v"
+      submodules:
+        - module_name: "module2"
+          files:
+            - path: "hdl/module2.v"
+        

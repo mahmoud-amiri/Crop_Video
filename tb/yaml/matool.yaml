@@ -1,0 +1,20 @@
+<design-name>:  
+  interfaces:
+    <interface1-name>:
+      active_passive: 'ACTIVE' 
+      parameters: 
+        - parameter WIDTH = 8,
+      ports:  #Here we define all of the signal names, directions and widths for the agent/interface
+        - input wire clk,          // Clock input
+        - input wire reset_n,      // Active low reset
+        - input wire [WIDTH-1:0] a, // Input operand a
+        - input wire [WIDTH-1:0] b, // Input operand b
+    <interface2-name>: 
+      active_passive: 'PASSIVE'
+      parameters: 
+        - parameter WIDTH = 8,
+      ports:  
+        - input wire en,            // Enable signal
+        - inout wire [WIDTH-1:0] data, // Bidirectional data bus
+        - output reg [WIDTH-1:0] sum,  // Output sum
+        - output reg valid,         // Output valid signal    
