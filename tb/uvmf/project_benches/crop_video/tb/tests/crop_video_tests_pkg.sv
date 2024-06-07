@@ -20,29 +20,30 @@
 
 package crop_video_tests_pkg;
 
-   import uvm_pkg::*;
-   import uvmf_base_pkg::*;
-   import crop_video_parameters_pkg::*;
-   import crop_video_env_pkg::*;
-   import crop_video_sequences_pkg::*;
-   import crop_video_config_pkg::*;
-   import crop_video_config_pkg_hdl::*;
-   import crop_video_axis_snk_pkg::*;
-   import crop_video_axis_snk_pkg_hdl::*;
-   import crop_video_axis_src_pkg::*;
-   import crop_video_axis_src_pkg_hdl::*;
+  import uvm_pkg::*;
+  import uvmf_base_pkg::*;
+  import crop_video_parameters_pkg::*;
+  import crop_video_env_pkg::*;
+  import crop_video_sequences_pkg::*;
+  import crop_video_config_pkg::*;
+  import crop_video_config_pkg_hdl::*;
+  import crop_video_axis_snk_pkg::*;
+  import crop_video_axis_snk_pkg_hdl::*;
+  import crop_video_axis_src_pkg::*;
+  import crop_video_axis_src_pkg_hdl::*;
 
 
-   `include "uvm_macros.svh"
+  `include "uvm_macros.svh"
 
   // pragma uvmf custom package_imports_additional begin 
   // pragma uvmf custom package_imports_additional end
 
-   `include "src/test_top.svh"
-   `include "src/register_test.svh"
-   `include "src/example_derived_test.svh"
-
+  `include "src/test_top.svh"
+  `include "src/register_test.svh"
+  `include "src/example_derived_test.svh"
+  
   // pragma uvmf custom package_item_additional begin
+  `include "src/video_stream_test.sv"
   // UVMF_CHANGE_ME : When adding new tests to the src directory
   //    be sure to add the test file here so that it will be
   //    compiled as part of the test package.  Be sure to place

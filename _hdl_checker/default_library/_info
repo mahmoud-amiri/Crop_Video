@@ -53,6 +53,31 @@ r1
 !i113 0
 R4
 R5
+XFileIO_pkg
+DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+!s110 1717755579
+!i10b 1
+!s100 :kBN<W58j;oMeRlXK[[3:2
+I9JIa>FS:HVbUF5f79T6dG1
+S1
+R0
+w1717133243
+8d:\GitHub\Crop_Video\tb\dpi\FileIO_pkg.sv
+Fd:\GitHub\Crop_Video\tb\dpi\FileIO_pkg.sv
+!i122 69
+L0 1 0
+V9JIa>FS:HVbUF5f79T6dG1
+R3
+r1
+!s85 0
+31
+!s108 1717755579.000000
+!s107 d:\GitHub\Crop_Video\tb\dpi\FileIO_pkg.sv|
+!s90 -modelsimini|d:\GitHub\Crop_Video\_hdl_checker\modelsim.ini|-quiet|-work|d:\GitHub\Crop_Video\_hdl_checker\default_library|-sv|-lint|-hazards|-pedanticerrors|-L|not_in_project|d:\GitHub\Crop_Video\tb\dpi\FileIO_pkg.sv|
+!i113 0
+o-quiet -work {d:\GitHub\Crop_Video\_hdl_checker\default_library} -sv -lint -hazards -pedanticerrors -L not_in_project -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R5
+n@file@i@o_pkg
 vmyipas_v1_0
 !s110 1717678435
 !i10b 1
