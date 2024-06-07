@@ -1,39 +1,101 @@
-# VHDL Image Cropping Module Testbench
+# crop_vid Module
 
-## Overview
-This repository contains the VHDL testbench for an image cropping module. The testbench is designed to simulate and validate the functionality of the `crop` entity, which performs image cropping based on the AXI Stream protocol.
+This repository contains the `crop_vid` Verilog module, which performs video frame cropping based on user-defined coordinates and dimensions. Additionally, it includes a UVM (Universal Verification Methodology) testbench for verifying the functionality of the module. The testbench utilizes DPI (Direct Programming Interface) to connect to Python for making predictions, and it incorporates coverage and assertions for thorough verification.
 
-## Description
-The testbench (`top_tb`) is structured to simulate an end-to-end environment for the image cropping module. It includes components for generating test data, applying cropping parameters, and verifying the output. The main components and their functionalities are as follows:
+## Module Description
 
-1. **Clk_Reset_Gen**: Generates a clock signal (`clk`) and a reset signal (`reset`) to synchronize and initialize the testbench components.
+The `crop_vid` module is designed to crop video frames by specifying the top-left corner coordinates (`crop_x`, `crop_y`) and the dimensions (`crop_width`, `crop_height`) of the crop area. The module interfaces with AXI-Stream for both input and output data.
 
-2. **Random_Test_Vector_Top**: Generates random test vectors including random crop dimensions and positions (`x_rand`, `y_rand`, `crop_width_rand`, `crop_height_rand`). These vectors are used to set the cropping parameters for each test frame.
+### Parameters
 
-3. **Video_Generator**: Simulates a video stream source, generating a sequence of image frames with control signals (`snk_tdata`, `snk_tvalid`, `snk_tlast`, `snk_tuser`) and a ready signal (`snk_tready`).
+- `C_S00_AXIS_TDATA_WIDTH`: Data width of the AXI Slave Bus Interface (default: 32).
+- `C_M00_AXIS_TDATA_WIDTH`: Data width of the AXI Master Bus Interface (default: 32).
+- `C_M00_AXIS_START_COUNT`: Start count for the AXI Master Bus Interface (default: 32).
 
-4. **Crop**: The main cropping entity under test. It receives the video stream and cropping parameters (`cfg_x_offset`, `cfg_y_offset`, `cfg_cols`, `cfg_rows`) and outputs the cropped video stream (`src_tdata`, `src_tvalid`, `src_tlast`, `src_tuser`).
+### Ports
 
-5. **Video_Properties_Extractor**: Extracts properties from the cropped video stream, such as width, height, and the first pixel of each frame.
+- **User-defined Ports:**
+  - `crop_x`: X-coordinate of the top-left corner of the crop area.
+  - `crop_y`: Y-coordinate of the top-left corner of the crop area.
+  - `crop_width`: Width of the crop area.
+  - `crop_height`: Height of the crop area.
 
-6. **Comparator**: Compares the expected cropping dimensions and positions with the actual output from the `crop` entity to verify its functionality.
+- **AXI Slave Bus Interface (S00_AXIS):**
+  - `s00_axis_aclk`: Clock signal.
+  - `s00_axis_aresetn`: Reset signal (active low).
+  - `s00_axis_tready`: Ready signal.
+  - `s00_axis_tdata`: Data signal.
+  - `s00_axis_tstrb`: Strobe signal.
+  - `s00_axis_tlast`: Last signal.
+  - `s00_axis_tvalid`: Valid signal.
+  - `s00_axis_tuser`: User signal.
 
-## Simulation Environment
-The testbench is set up in a modular fashion, making it adaptable for various frame sizes and cropping scenarios. It is designed to:
+- **AXI Master Bus Interface (M00_AXIS):**
+  - `m00_axis_aclk`: Clock signal.
+  - `m00_axis_aresetn`: Reset signal (active low).
+  - `m00_axis_tvalid`: Valid signal.
+  - `m00_axis_tdata`: Data signal.
+  - `m00_axis_tstrb`: Strobe signal.
+  - `m00_axis_tlast`: Last signal.
+  - `m00_axis_tuser`: User signal.
+  - `m00_axis_tready`: Ready signal.
 
-- Generate a clock and reset signal for synchronization.
-- Produce test video frames and apply random cropping parameters.
-- Process the frames through the `crop` entity.
-- Extract properties from the cropped video output.
-- Compare and validate the output against the expected results.
+## UVM Testbench
 
-## Usage
-To use this testbench:
+The UVM testbench is designed to verify the functionality of the `crop_vid` module. It uses DPI to connect to Python for making predictions. The testbench also includes coverage metrics and assertions to ensure comprehensive verification.
 
-1. Clone the repository.
-2. Open the project in your VHDL simulation environment.
-3. Run the simulation and observe the output.
-4. Verify the functionality of the `crop` entity through the testbench reports.
+### Features
 
-## Requirements
-This testbench is designed for VHDL simulation environments and requires components compatible with the AXI Stream protocol.
+- **DPI Connection:** The testbench uses DPI to call Python functions for making predictions during the verification process.
+- **Coverage:** Functional coverage is implemented to ensure all scenarios are tested.
+- **Assertions:** Assertions are added to check critical conditions and ensure the module behaves as expected.
+
+## Repository Structure
+
+```
+.
+├── hdl
+│   ├── crop_vid.v          # Verilog source file for the crop_vid module
+│   └── ...                 # Other source files
+├── tb
+│   ├── dpi                 # dpi library, including `predictor.py` which should be run after compiling and running testbench
+│   ├── UVMF                # testbench generated by UVM framework
+│   ├── yaml                # yaml files
+│   └── ...                 # Other files
+├── README.md               # This README file
+└── LICENSE                 # license file
+```
+
+## Getting Started
+
+### Prerequisites
+
+- **Verilog Compiler:** Questa Sim-64 2021.1.
+- **UVM Library:** UVM library installed.
+- **Python:** Python 2.7 installed.
+
+### Running the Simulation
+
+1. **Clone the repository:**
+
+    ```sh
+    git clone git@github.com:mahmoud-amiri/Crop_Video.git
+    cd Crop_Video
+    ```
+
+2. **Compile and run the Verilog sources and the UVM testbench:**
+
+    ```sh
+    ./tb/uvmf/project_benches/crop_video/sim/invoke_questa.bat
+    python ./tb/dpi/predictor.py
+    ```
+
+    change the `QUESTA_ROOT` and `UVMF_HOME` path inside `invoke_questa.bat`.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
