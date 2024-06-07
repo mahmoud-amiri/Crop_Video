@@ -223,13 +223,10 @@ end
        //      crop_width_o <= crop_video_config_initiator_struct.xyz;  //    [15:0] 
        //      crop_height_o <= crop_video_config_initiator_struct.xyz;  //    [15:0] 
        //    Initiator inout signals
-    // Initiate a transfer using the data received.
-    @(posedge clk_i);
-    @(posedge clk_i);
-    // Wait for the responder to complete the transfer then place the responder data into 
-    // crop_video_config_responder_struct.
-    @(posedge clk_i);
-    @(posedge clk_i);
+    crop_x_o <= crop_video_config_initiator_struct.crop_x;  
+    crop_y_o <= crop_video_config_initiator_struct.crop_y;  
+    crop_width_o <= crop_video_config_initiator_struct.crop_width;  
+    crop_height_o <= crop_video_config_initiator_struct.crop_height;  
     responder_struct = crop_video_config_responder_struct;
   endtask        
 // pragma uvmf custom initiate_and_get_response end

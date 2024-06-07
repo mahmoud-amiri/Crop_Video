@@ -11,6 +11,11 @@ if {[info exists ::env(UVMF_EXTRA_VSIM_ARGS)]} {
   quietly set extra_vsim_args $::env(UVMF_EXTRA_VSIM_ARGS)
 }
 
+###################################################################
+## Specify the shared library
+###################################################################
+set svLibs [format "-sv_lib %s/../../../dpi/server" $::env(UVMF_PROJECT_DIR)]
+
 ##################################################################
 ## Launch Questa : generate vsim command line and execute
 ##################################################################

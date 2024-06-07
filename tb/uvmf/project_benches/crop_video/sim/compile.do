@@ -27,13 +27,30 @@ file delete -force veloce.med veloce.wave veloce.map tbxbindings.h edsenv velrun
 file delete -force sv_connect.*
 
 ###################################################################
+## COMPILE C CODE AND CREATE SHARED LIBRARY
+###################################################################
+# Compile the C code to create a DLL for DPI
+#exec gcc -c -o $env(UVMF_PROJECT_DIR)/../../../dpi/server.o $env(UVMF_PROJECT_DIR)/../../../dpi/server.c
+#exec gcc -shared -o $env(UVMF_PROJECT_DIR)/../../../dpi/server.dll $env(UVMF_PROJECT_DIR)/../../../dpi/server.o
+
+###################################################################
+## COMPILE PACKAGES
+###################################################################
+
+vlog -sv $env(UVMF_PROJECT_DIR)/../../../dpi/server_pkg.sv
+vlog -sv $env(UVMF_PROJECT_DIR)/../../../dpi/FileIO_pkg.sv
+vlog -sv $env(UVMF_PROJECT_DIR)/../../../dpi/JSONParser_pkg.sv
+vlog -sv $env(UVMF_PROJECT_DIR)/../../../dpi/server_api_pkg.sv
+
+###################################################################
 ## COMPILE DUT SOURCE CODE
 ###################################################################
 vlib work 
 # pragma uvmf custom dut_compile_dofile_target begin
 # UVMF_CHANGE_ME : Add commands to compile your dut here, replacing the default examples
-vlog -sv -timescale 1ps/1ps -suppress 2223,2286 $env(UVMF_PROJECT_DIR)/rtl/verilog/verilog_dut.v
-vcom $env(UVMF_PROJECT_DIR)/rtl/vhdl/vhdl_dut.vhd
+vlog -sv -timescale 1ps/1ps -suppress 2223,2286 $env(UVMF_PROJECT_DIR)/../../../../hdl/M00_AXIS.v
+vlog -sv -timescale 1ps/1ps -suppress 2223,2286 $env(UVMF_PROJECT_DIR)/../../../../hdl/S00_AXIS.v
+vlog -sv -timescale 1ps/1ps -suppress 2223,2286 $env(UVMF_PROJECT_DIR)/../../../../hdl/crop_vid.v
 # pragma uvmf custom dut_compile_dofile_target end
 
 ###################################################################

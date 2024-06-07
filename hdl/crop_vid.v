@@ -1,8 +1,7 @@
     
     `timescale 1 ns / 1 ps
 
-	module crop_vid #
-	(
+	module crop_vid #(
 		// Users to add parameters here
 
 		// User parameters ends
@@ -10,13 +9,12 @@
 
 
 		// Parameters of Axi Slave Bus Interface S00_AXIS
-		parameter integer C_S00_AXIS_TDATA_WIDTH	= 32,
+		parameter C_S00_AXIS_TDATA_WIDTH	= 32,
 
 		// Parameters of Axi Master Bus Interface M00_AXIS
-		parameter integer C_M00_AXIS_TDATA_WIDTH	= 32,
-		parameter integer C_M00_AXIS_START_COUNT	= 32
-	)
-	(
+		parameter C_M00_AXIS_TDATA_WIDTH	= 32,
+		parameter C_M00_AXIS_START_COUNT	= 32
+	)(
 		// Users to add ports here
         input wire [15:0] crop_x,
         input wire [15:0] crop_y,
@@ -131,3 +129,4 @@
 			end
 		end
 	end
+	endmodule	

@@ -24,10 +24,10 @@ class crop_video_config_transaction  extends uvmf_transaction_base;
   rand bit [16-1:0] crop_height ;
 
   //Constraints for the transaction variables:
-  constraint crop_x_c { crop_x inside {[1:1919]}; }; 
+  constraint crop_x_c { crop_x inside {[1:1919]};}; 
   constraint crop_y_c { crop_y inside {[1:1079]}; }; 
-  constraint crop_width_c { crop_width inside {[1:1920 - crop_x]}; } 
-  constraint crop_height_c { crop_height inside {[1:1080 - crop_y]}; }
+  constraint crop_width_c { crop_width inside {[1:1920 - crop_x]}; }; 
+  constraint crop_height_c { crop_height inside {[1:1080 - crop_y]}; }; 
   constraint solve_c { solve crop_x before crop_width; solve crop_y before crop_height;}; 
 
   // pragma uvmf custom class_item_additional begin

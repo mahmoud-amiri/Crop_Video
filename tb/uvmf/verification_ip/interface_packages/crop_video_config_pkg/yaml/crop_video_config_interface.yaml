@@ -33,19 +33,19 @@ uvmf:
       transaction_constraints:
       - comment: ''
         name: crop_x_c
-        value: '{ crop_x inside {[1:1919]} }; '
+        value: '{ crop_x inside {[1:1919]};}; '
       - comment: ''
         name: crop_y_c
-        value: '{ crop_y inside {[1:1079]} }; '
+        value: '{ crop_y inside {[1:1079]}; }; '
       - comment: ''
         name: crop_width_c
-        value: '{ crop_width < 1920 - crop_x }; '
+        value: '{ crop_width inside {[1:1920 - crop_x]}; }; '
       - comment: ''
         name: crop_height_c
-        value: '{ crop_height < 1080 - crop_y }; '
+        value: '{ crop_height inside {[1:1080 - crop_y]}; }; '
       - comment: ''
         name: solve_c
-        value: '{ solve crop_x_c before crop_width_c; solve crop_y_c before crop_height_c;}; '
+        value: '{ solve crop_x before crop_width; solve crop_y before crop_height;}; '
       transaction_vars:
       - comment: ''
         iscompare: 'True'

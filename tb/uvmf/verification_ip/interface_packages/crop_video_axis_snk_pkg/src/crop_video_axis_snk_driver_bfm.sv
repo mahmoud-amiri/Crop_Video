@@ -246,12 +246,20 @@ end
        //      s00_axis_tuser_o <= crop_video_axis_snk_initiator_struct.xyz;  //     
        //    Initiator inout signals
     // Initiate a transfer using the data received.
+    // Drive signals
+    s00_axis_tdata_o <= crop_video_axis_snk_initiator_struct.s00_axis_tdata; 
+    s00_axis_tstrb_o <= crop_video_axis_snk_initiator_struct.s00_axis_tstrb; 
+    s00_axis_tlast_o <= crop_video_axis_snk_initiator_struct.s00_axis_tlast; 
+    s00_axis_tvalid_o <= crop_video_axis_snk_initiator_struct.s00_axis_tvalid;
+    s00_axis_tuser_o <= crop_video_axis_snk_initiator_struct.s00_axis_tuser; 
+
+    // Wait for ready signal
+    wait(s00_axis_tready_i == 1'b1);
     @(posedge clk_i);
-    @(posedge clk_i);
-    // Wait for the responder to complete the transfer then place the responder data into 
-    // crop_video_axis_snk_responder_struct.
-    @(posedge clk_i);
-    @(posedge clk_i);
+
+    // Capture response
+    crop_video_axis_snk_responder_struct.s00_axis_tready = s00_axis_tready_i;
+
     responder_struct = crop_video_axis_snk_responder_struct;
   endtask        
 // pragma uvmf custom initiate_and_get_response end

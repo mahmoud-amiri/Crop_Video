@@ -84,8 +84,33 @@ import uvmf_base_pkg_hdl::*;
   // UVMF_CHANGE_ME : Add DUT and connect to signals in _bus interfaces listed above
   // Instantiate your DUT here
   // These DUT's instantiated to show verilog and vhdl instantiation
-  verilog_dut         dut_verilog(   .clk(clk), .rst(rst), .in_signal(vhdl_to_verilog_signal), .out_signal(verilog_to_vhdl_signal));
-  vhdl_dut            dut_vhdl   (   .clk(clk), .rst(rst), .in_signal(verilog_to_vhdl_signal), .out_signal(vhdl_to_verilog_signal));
+  crop_vid #(
+    .C_S00_AXIS_TDATA_WIDTH(32),
+    .C_M00_AXIS_TDATA_WIDTH(32),
+    .C_M00_AXIS_START_COUNT(32)
+  ) crop_vid_inst (
+    .crop_x(crop_video_config_agent_bus.crop_x),
+    .crop_y(crop_video_config_agent_bus.crop_y),
+    .crop_width(crop_video_config_agent_bus.crop_width),
+    .crop_height(crop_video_config_agent_bus.crop_height),
+    .s00_axis_aclk(clk),
+    .s00_axis_aresetn(rst),
+    .s00_axis_tlast(crop_video_axis_snk_agent_bus.s00_axis_tlast),
+    .s00_axis_tvalid(crop_video_axis_snk_agent_bus.s00_axis_tvalid),
+    .s00_axis_tuser(crop_video_axis_snk_agent_bus.s00_axis_tuser),
+    .s00_axis_tready(crop_video_axis_snk_agent_bus.s00_axis_tready),
+    .s00_axis_tdata(crop_video_axis_snk_agent_bus.s00_axis_tdata),
+    .s00_axis_tstrb(crop_video_axis_snk_agent_bus.s00_axis_tstrb),
+
+    .m00_axis_aclk(crop_video_axis_src_agent_bus.m00_axis_aclk),
+    .m00_axis_aresetn(crop_video_axis_src_agent_bus.m00_axis_aresetn),
+    .m00_axis_tready(crop_video_axis_src_agent_bus.m00_axis_tready),
+    .m00_axis_tvalid(crop_video_axis_src_agent_bus.m00_axis_tvalid),
+    .m00_axis_tlast(crop_video_axis_src_agent_bus.m00_axis_tlast),
+    .m00_axis_tuser(crop_video_axis_src_agent_bus.m00_axis_tuser),
+    .m00_axis_tdata(crop_video_axis_src_agent_bus.m00_axis_tdata),
+    .m00_axis_tstrb(crop_video_axis_src_agent_bus.m00_axis_tstrb)
+  );
   // pragma uvmf custom dut_instantiation end
 
   initial begin      // tbx vif_binding_block 
