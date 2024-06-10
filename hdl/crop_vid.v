@@ -91,6 +91,8 @@
 	assign m00_axis_tstrb = {(C_M00_AXIS_TDATA_WIDTH/8){1'b1}};
 	assign m00_axis_tlast = cropped_last;
 	assign m00_axis_tuser = cropped_user;
+	assign m00_axis_aresetn = s00_axis_aresetn;
+	assign m00_axis_aclk = s00_axis_aclk;
 
 	// Process the incoming data
 	always @(posedge s00_axis_aclk) begin
@@ -100,6 +102,7 @@
 			cropped_valid <= 0;
 			cropped_last <= 0;
 			cropped_user <= 0;
+			cropped_data <= 0;
 		end else if (axis_handshake) begin
 			if (x >= crop_x && x < crop_x + crop_width && y >= crop_y && y < crop_y + crop_height) begin
 				cropped_data <= s00_axis_tdata;
@@ -107,6 +110,7 @@
 				cropped_last <= s00_axis_tlast;
 				cropped_user <= (x == crop_x && y == crop_y) ? s00_axis_tuser : 0;
 			end else begin
+				cropped_data <= 0;
 				cropped_valid <= 0;
 				cropped_last <= 0;
 				cropped_user <= 0;

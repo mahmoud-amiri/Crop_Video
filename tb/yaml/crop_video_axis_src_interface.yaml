@@ -46,12 +46,14 @@ uvmf:
       response_info:
         data: []
         operation: 1'b0
-      transaction_constraints: []
+      transaction_constraints: 
+      - name: m00_axis_tready_c
+        value: '{m00_axis_tready dist { 0:=20, 1:=80 };}; '
       transaction_vars:
       - name: m00_axis_tready
         type: bit
         iscompare: 'True'
-        isrand: 'False'
+        isrand: 'True'
       - name: m00_axis_tvalid
         type: bit
         iscompare: 'True'
