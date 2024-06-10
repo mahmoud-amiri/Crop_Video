@@ -43,7 +43,6 @@ package crop_video_tests_pkg;
   `include "src/example_derived_test.svh"
   
   // pragma uvmf custom package_item_additional begin
-  `include "src/video_stream_test.sv"
   // UVMF_CHANGE_ME : When adding new tests to the src directory
   //    be sure to add the test file here so that it will be
   //    compiled as part of the test package.  Be sure to place

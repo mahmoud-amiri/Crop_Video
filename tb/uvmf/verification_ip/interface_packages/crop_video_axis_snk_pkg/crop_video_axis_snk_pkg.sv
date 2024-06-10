@@ -64,6 +64,7 @@ package crop_video_axis_snk_pkg;
    `include "src/crop_video_axis_snk_agent.svh"
 
    // pragma uvmf custom package_item_additional begin
+   `include "src/crop_video_axis_snk_video_pattern_sequence.svh"
    // UVMF_CHANGE_ME : When adding new interface sequences to the src directory
    //    be sure to add the sequence file here so that it will be
    //    compiled as part of the interface package.  Be sure to place
