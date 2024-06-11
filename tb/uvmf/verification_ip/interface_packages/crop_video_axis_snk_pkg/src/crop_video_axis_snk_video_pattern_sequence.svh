@@ -82,6 +82,8 @@ class crop_video_axis_snk_video_pattern_sequence #(
               )::type_id::create("req");
 
           // Select pattern based on the pattern type
+          // wait(req.s00_axis_tready);
+
           case (pattern_type)
             SOLID_COLOR: generate_solid_color(req, color);
             CHECKERBOARD: generate_checkerboard(req, x, y);
@@ -95,6 +97,7 @@ class crop_video_axis_snk_video_pattern_sequence #(
           start_item(req);
           finish_item(req);
           `uvm_info("SEQ", {"Response:",req.convert2string()},UVM_MEDIUM)
+
         end
       end
     end

@@ -57,6 +57,8 @@ class crop_video_ext_sequence #(
     // crop_video_env_seq = crop_video_env_sequence_base_t::type_id::create("crop_video_env_seq");
     crop_video_axis_snk_video_pattern_seq = crop_video_axis_snk_video_pattern_sequence#(crop_video_axis_snk_C_S00_AXIS_TDATA_WIDTH, crop_video_axis_snk_C_S00_AXIS_TDATA_WIDTH_8)::type_id::create("crop_video_axis_snk_video_pattern_sequence");
     crop_video_config_agent_random_seq = crop_video_config_agent_random_seq_t::type_id::create("crop_video_config_agent_random_seq");
+    crop_video_axis_src_agent_random_seq     = crop_video_axis_src_agent_random_seq_t::type_id::create("crop_video_axis_src_agent_random_seq");
+
     fork
       crop_video_config_agent_config.wait_for_reset();
       crop_video_axis_snk_agent_config.wait_for_reset();
@@ -69,6 +71,7 @@ class crop_video_ext_sequence #(
     fork
       repeat (25) crop_video_config_agent_random_seq.start(crop_video_config_agent_sequencer);
       repeat (25) crop_video_axis_snk_video_pattern_seq.start(crop_video_axis_snk_agent_sequencer);
+      repeat (25) crop_video_axis_src_agent_random_seq.start(crop_video_axis_src_agent_sequencer);
     join
 
 // crop_video_env_seq.start(top_configuration.vsqr);

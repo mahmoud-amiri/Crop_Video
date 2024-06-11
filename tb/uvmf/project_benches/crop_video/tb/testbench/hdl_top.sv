@@ -79,6 +79,7 @@ import uvmf_base_pkg_hdl::*;
   crop_video_axis_src_monitor_bfm  crop_video_axis_src_agent_mon_bfm(crop_video_axis_src_agent_bus);
   crop_video_config_driver_bfm  crop_video_config_agent_drv_bfm(crop_video_config_agent_bus);
   crop_video_axis_snk_driver_bfm  crop_video_axis_snk_agent_drv_bfm(crop_video_axis_snk_agent_bus);
+  crop_video_axis_src_driver_bfm  crop_video_axis_src_agent_drv_bfm(crop_video_axis_src_agent_bus);
 
   // pragma uvmf custom dut_instantiation begin
   // UVMF_CHANGE_ME : Add DUT and connect to signals in _bus interfaces listed above
@@ -102,8 +103,8 @@ import uvmf_base_pkg_hdl::*;
     .s00_axis_tdata(crop_video_axis_snk_agent_bus.s00_axis_tdata),
     .s00_axis_tstrb(crop_video_axis_snk_agent_bus.s00_axis_tstrb),
 
-    .m00_axis_aclk(crop_video_axis_src_agent_bus.m00_axis_aclk),
-    .m00_axis_aresetn(crop_video_axis_src_agent_bus.m00_axis_aresetn),
+    .m00_axis_aclk(clk),
+    .m00_axis_aresetn(rst),
     .m00_axis_tready(crop_video_axis_src_agent_bus.m00_axis_tready),
     .m00_axis_tvalid(crop_video_axis_src_agent_bus.m00_axis_tvalid),
     .m00_axis_tlast(crop_video_axis_src_agent_bus.m00_axis_tlast),
@@ -124,6 +125,7 @@ import uvmf_base_pkg_hdl::*;
     uvm_config_db #( virtual crop_video_axis_src_monitor_bfm  )::set( null , UVMF_VIRTUAL_INTERFACES , crop_video_axis_src_agent_BFM , crop_video_axis_src_agent_mon_bfm ); 
     uvm_config_db #( virtual crop_video_config_driver_bfm  )::set( null , UVMF_VIRTUAL_INTERFACES , crop_video_config_agent_BFM , crop_video_config_agent_drv_bfm  );
     uvm_config_db #( virtual crop_video_axis_snk_driver_bfm  )::set( null , UVMF_VIRTUAL_INTERFACES , crop_video_axis_snk_agent_BFM , crop_video_axis_snk_agent_drv_bfm  );
+    uvm_config_db #( virtual crop_video_axis_src_driver_bfm  )::set( null , UVMF_VIRTUAL_INTERFACES , crop_video_axis_src_agent_BFM , crop_video_axis_src_agent_drv_bfm  );
   end
 
 endmodule

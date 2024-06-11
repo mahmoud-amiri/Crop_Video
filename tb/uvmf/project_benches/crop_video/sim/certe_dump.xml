@@ -57,6 +57,21 @@
         <instance type=" uvm_agent "> 
            crop_video_axis_src_agent 
   
+           <instance type=" uvm_driver #(REQ,RSP) "> 
+              crop_video_axis_src_agent_driver 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 rsp_port 
+                 <connection>  uvm_test_top.environment.crop_video_axis_src_agent.sequencer.rsp_export  </connection> 
+              </port> 
+  
+              <port if_type = "uvm_seq_item_pull_port" txn_type = "anonymous"> 
+                 seq_item_port 
+                 <connection>  uvm_test_top.environment.crop_video_axis_src_agent.sequencer.seq_item_export  </connection> 
+              </port> 
+           </instance> 
+  
+  
            <instance type=" uvm_monitor "> 
               crop_video_axis_src_agent_monitor 
   
@@ -71,6 +86,20 @@
               monitored_ap 
               <connection>  uvm_test_top.environment.crop_video_sb.actual_analysis_export  </connection> 
            </port> 
+  
+           <instance type=" uvm_sequencer "> 
+              sequencer 
+  
+              <export if_type = "uvm_analysis_export" txn_type = "anonymous"> 
+                 rsp_export 
+                 <connection>  uvm_test_top.environment.crop_video_axis_src_agent.sequencer.sqr_rsp_analysis_fifo.analysis_export  </connection> 
+              </export> 
+  
+              <imp if_type = "uvm_seq_item_pull_imp" txn_type = "anonymous"> 
+                 seq_item_export 
+              </imp> 
+           </instance> 
+  
         </instance> 
   
   

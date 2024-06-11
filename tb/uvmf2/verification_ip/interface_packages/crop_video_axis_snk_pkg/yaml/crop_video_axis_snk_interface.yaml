@@ -1,0 +1,85 @@
+uvmf:
+  interfaces:
+    crop_video_axis_snk:
+      clock: clk
+      config_constraints: []
+      config_vars: []
+      existing_library_component: 'True'
+      gen_inbound_streaming_driver: 'False'
+      hdl_pkg_parameters: []
+      hdl_typedefs: []
+      hvl_pkg_parameters: []
+      hvl_typedefs: []
+      parameters:
+      - name: crop_video_axis_snk_C_S00_AXIS_TDATA_WIDTH
+        type: int
+        value: '32'
+      - name: crop_video_axis_snk_C_S00_AXIS_TDATA_WIDTH_8
+        type: int
+        value: '4'
+      ports:
+      - dir: output
+        name: s00_axis_tdata
+        reset_value: '''b0'
+        width: crop_video_axis_snk_C_S00_AXIS_TDATA_WIDTH
+      - dir: output
+        name: s00_axis_tstrb
+        reset_value: '''b0'
+        width: crop_video_axis_snk_C_S00_AXIS_TDATA_WIDTH_8
+      - dir: output
+        name: s00_axis_tlast
+        reset_value: '''b0'
+        width: '1'
+      - dir: output
+        name: s00_axis_tvalid
+        reset_value: '''b0'
+        width: '1'
+      - dir: output
+        name: s00_axis_tuser
+        reset_value: '''b0'
+        width: '1'
+      - dir: input
+        name: s00_axis_tready
+        reset_value: '''b0'
+        width: '1'
+      reset: rst
+      reset_assertion_level: 'False'
+      transaction_constraints: []
+      transaction_vars:
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'False'
+        name: s00_axis_tdata
+        type: bit [crop_video_axis_snk_C_S00_AXIS_TDATA_WIDTH-1:0]
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'False'
+        name: s00_axis_tstrb
+        type: bit [crop_video_axis_snk_C_S00_AXIS_TDATA_WIDTH_8-1:0]
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'False'
+        name: s00_axis_tlast
+        type: bit
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'False'
+        name: s00_axis_tvalid
+        type: bit
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'False'
+        name: s00_axis_tuser
+        type: bit
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'False'
+        name: s00_axis_tready
+        type: bit
+        unpacked_dimension: ''
+      use_dpi_link: 'False'

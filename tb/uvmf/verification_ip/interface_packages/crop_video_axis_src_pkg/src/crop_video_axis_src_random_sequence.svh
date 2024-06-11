@@ -57,6 +57,7 @@ class crop_video_axis_src_random_sequence #(
       // Randomize the transaction
       if(!req.randomize()) `uvm_fatal("SEQ", "crop_video_axis_src_random_sequence::body()-crop_video_axis_src_transaction randomization failed")
       // Send the transaction to the crop_video_axis_src_driver_bfm via the sequencer and crop_video_axis_src_driver.
+      // req.m00_axis_tready = 1'b1;
       finish_item(req);
       `uvm_info("SEQ", {"Response:",req.convert2string()},UVM_MEDIUM)
 

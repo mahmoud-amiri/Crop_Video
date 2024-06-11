@@ -32,26 +32,26 @@ r1
 Z4 o-quiet -work {d:\GitHub\Crop_Video\_hdl_checker\default_library} -lint -hazards -pedanticerrors -L default_library -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 Z5 tCvgOpt 0
 vcrop_vid
-!s110 1718020970
+!s110 1718029769
 !i10b 1
-!s100 >VdB6:E@[2HnWHCC4NoiB3
-ITJ;_e08<D9neSYSk>:clE0
+!s100 j>W7?EODR3;ATOl^aIS=63
+IYXADzf=hj6B>aA:0>Ad4<1
 R0
-w1718020969
+w1718029767
 8d:\GitHub\Crop_Video\hdl\crop_vid.v
 Fd:\GitHub\Crop_Video\hdl\crop_vid.v
-!i122 137
+!i122 153
 L0 4 133
 R2
 R3
 r1
 !s85 0
 31
-!s108 1718020970.000000
+!s108 1718029769.000000
 !s107 d:\GitHub\Crop_Video\hdl\crop_vid.v|
-!s90 -modelsimini|d:\GitHub\Crop_Video\_hdl_checker\modelsim.ini|-quiet|-work|d:\GitHub\Crop_Video\_hdl_checker\default_library|-lint|-hazards|-pedanticerrors|-L|default_library|d:\GitHub\Crop_Video\hdl\crop_vid.v|
+!s90 -modelsimini|d:\GitHub\Crop_Video\_hdl_checker\modelsim.ini|-quiet|-work|d:\GitHub\Crop_Video\_hdl_checker\default_library|-lint|-hazards|-pedanticerrors|-L|not_in_project|d:\GitHub\Crop_Video\hdl\crop_vid.v|
 !i113 0
-R4
+o-quiet -work {d:\GitHub\Crop_Video\_hdl_checker\default_library} -lint -hazards -pedanticerrors -L not_in_project -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R5
 XFileIO_pkg
 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92

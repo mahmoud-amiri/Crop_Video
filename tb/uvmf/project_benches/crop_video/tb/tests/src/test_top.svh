@@ -36,7 +36,7 @@ class test_top extends uvmf_test_base #(.CONFIG_T(crop_video_env_configuration_t
 uvmf_active_passive_t interface_activities[] = { 
     ACTIVE /* crop_video_config_agent     [0] */ , 
     ACTIVE /* crop_video_axis_snk_agent     [1] */ , 
-    PASSIVE /* crop_video_axis_src_agent     [2] */   };
+    ACTIVE /* crop_video_axis_src_agent     [2] */   };
 
 
   // pragma uvmf custom class_item_additional begin

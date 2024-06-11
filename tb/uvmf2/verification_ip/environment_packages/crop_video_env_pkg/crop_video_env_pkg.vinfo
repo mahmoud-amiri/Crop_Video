@@ -1,0 +1,6 @@
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.vinfo
+@use $UVMF_VIP_LIBRARY_HOME/interface_packages/crop_video_config_pkg/crop_video_config_pkg.vinfo
+@use $UVMF_VIP_LIBRARY_HOME/interface_packages/crop_video_axis_snk_pkg/crop_video_axis_snk_pkg.vinfo
+@use $UVMF_VIP_LIBRARY_HOME/interface_packages/crop_video_axis_src_pkg/crop_video_axis_src_pkg.vinfo
++incdir+@vinfodir
+crop_video_env_pkg.sv

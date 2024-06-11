@@ -42,6 +42,8 @@ class crop_video_bench_sequence_base extends uvmf_sequence_base #(uvm_sequence_i
   crop_video_config_agent_random_seq_t crop_video_config_agent_random_seq;
   typedef crop_video_axis_snk_random_sequence  crop_video_axis_snk_agent_random_seq_t;
   crop_video_axis_snk_agent_random_seq_t crop_video_axis_snk_agent_random_seq;
+  typedef crop_video_axis_src_random_sequence  crop_video_axis_src_agent_random_seq_t;
+  crop_video_axis_src_agent_random_seq_t crop_video_axis_src_agent_random_seq;
   // pragma uvmf custom sequences end
 
   // Sequencer handles for each active interface in the environment
@@ -49,6 +51,8 @@ class crop_video_bench_sequence_base extends uvmf_sequence_base #(uvm_sequence_i
   uvm_sequencer #(crop_video_config_agent_transaction_t)  crop_video_config_agent_sequencer; 
   typedef crop_video_axis_snk_transaction  crop_video_axis_snk_agent_transaction_t;
   uvm_sequencer #(crop_video_axis_snk_agent_transaction_t)  crop_video_axis_snk_agent_sequencer; 
+  typedef crop_video_axis_src_transaction  crop_video_axis_src_agent_transaction_t;
+  uvm_sequencer #(crop_video_axis_src_agent_transaction_t)  crop_video_axis_src_agent_sequencer; 
 
 
   // Top level environment configuration handle
@@ -84,6 +88,7 @@ class crop_video_bench_sequence_base extends uvmf_sequence_base #(uvm_sequence_i
     // Assign the sequencer handles from the handles within agent configurations
     crop_video_config_agent_sequencer = crop_video_config_agent_config.get_sequencer();
     crop_video_axis_snk_agent_sequencer = crop_video_axis_snk_agent_config.get_sequencer();
+    crop_video_axis_src_agent_sequencer = crop_video_axis_src_agent_config.get_sequencer();
 
 
 
@@ -102,6 +107,7 @@ class crop_video_bench_sequence_base extends uvmf_sequence_base #(uvm_sequence_i
 
     crop_video_config_agent_random_seq     = crop_video_config_agent_random_seq_t::type_id::create("crop_video_config_agent_random_seq");
     crop_video_axis_snk_agent_random_seq     = crop_video_axis_snk_agent_random_seq_t::type_id::create("crop_video_axis_snk_agent_random_seq");
+    crop_video_axis_src_agent_random_seq     = crop_video_axis_src_agent_random_seq_t::type_id::create("crop_video_axis_src_agent_random_seq");
     fork
       crop_video_config_agent_config.wait_for_reset();
       crop_video_axis_snk_agent_config.wait_for_reset();
@@ -114,6 +120,7 @@ class crop_video_bench_sequence_base extends uvmf_sequence_base #(uvm_sequence_i
     fork
       repeat (25) crop_video_config_agent_random_seq.start(crop_video_config_agent_sequencer);
       repeat (25) crop_video_axis_snk_agent_random_seq.start(crop_video_axis_snk_agent_sequencer);
+      repeat (25) crop_video_axis_src_agent_random_seq.start(crop_video_axis_src_agent_sequencer);
     join
 
 // crop_video_env_seq.start(top_configuration.vsqr);

@@ -23,7 +23,7 @@ crop_video:
         - input wire  s00_axis_tvalid,
         - input wire s00_axis_tuser,
     axis_src: 
-      active_passive: 'PASSIVE'
+      active_passive: 'ACTIVE'
       parameters: 
         - parameter C_M00_AXIS_TDATA_WIDTH = 32,
         - parameter C_M00_AXIS_START_COUNT = 32,

@@ -26,8 +26,7 @@ class crop_video_axis_src_transaction #(
                            crop_video_axis_src_C_M00_AXIS_START_COUNT
                            ))
 
-  // rand bit m00_axis_tready ;
-  bit m00_axis_tready ;
+  rand bit m00_axis_tready ;
   bit m00_axis_tvalid ;
   bit m00_axis_tlast ;
   bit m00_axis_tuser ;
@@ -35,9 +34,9 @@ class crop_video_axis_src_transaction #(
   bit [crop_video_axis_src_C_M00_AXIS_TDATA_WIDTH_8-1:0] m00_axis_tstrb ;
 
   //Constraints for the transaction variables:
+  // constraint m00_axis_tready_c {m00_axis_tready dist { 0:=20, 1:=80 };}; 
 
   // pragma uvmf custom class_item_additional begin
-  // constraint m00_axis_tready_c {m00_axis_tready dist { 0:=20, 1:=80 };}
   // pragma uvmf custom class_item_additional end
 
   //*******************************************************************

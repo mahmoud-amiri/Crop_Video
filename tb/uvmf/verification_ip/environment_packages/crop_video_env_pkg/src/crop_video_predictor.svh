@@ -163,7 +163,6 @@ class crop_video_predictor #(
   // This function performs prediction of DUT output values based on DUT input, configuration and state
   virtual function void write_crop_video_config_agent_ae(crop_video_config_transaction t);
     // pragma uvmf custom crop_video_config_agent_ae_predictor begin
-    
     crop_video_config_agent_ae_debug = t;
     `uvm_info("PRED", "Transaction Received through crop_video_config_agent_ae", UVM_MEDIUM)
     `uvm_info("PRED", {"            Data: ",t.convert2string()}, UVM_FULL)

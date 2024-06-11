@@ -62,8 +62,8 @@
 		.C_M_AXIS_TDATA_WIDTH(C_M00_AXIS_TDATA_WIDTH),
 		.C_M_START_COUNT(C_M00_AXIS_START_COUNT)
 	) M00_AXIS_inst (
-		.M_AXIS_ACLK(m00_axis_aclk),
-		.M_AXIS_ARESETN(m00_axis_aresetn),
+		.M_AXIS_ACLK(s00_axis_aclk),
+		.M_AXIS_ARESETN(s00_axis_aresetn),
 		.M_AXIS_TVALID(m00_axis_tvalid),
 		.M_AXIS_TDATA(m00_axis_tdata),
 		.M_AXIS_TSTRB(m00_axis_tstrb),
@@ -91,8 +91,8 @@
 	assign m00_axis_tstrb = {(C_M00_AXIS_TDATA_WIDTH/8){1'b1}};
 	assign m00_axis_tlast = cropped_last;
 	assign m00_axis_tuser = cropped_user;
-	assign m00_axis_aresetn = s00_axis_aresetn;
-	assign m00_axis_aclk = s00_axis_aclk;
+	// assign m00_axis_aresetn = s00_axis_aresetn;
+	// assign m00_axis_aclk = s00_axis_aclk;
 
 	// Process the incoming data
 	always @(posedge s00_axis_aclk) begin

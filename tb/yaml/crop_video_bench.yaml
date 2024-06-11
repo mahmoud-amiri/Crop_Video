@@ -7,7 +7,7 @@ uvmf:
       - bfm_name: crop_video_axis_snk_agent
         value: "ACTIVE"
       - bfm_name: crop_video_axis_src_agent
-        value: "PASSIVE"
+        value: "ACTIVE"
       clock_half_period: 5ns
       clock_phase_offset: 9ns
       interface_params: []

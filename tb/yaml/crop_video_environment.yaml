@@ -10,7 +10,7 @@ uvmf:
         initiator_responder: "INITIATOR"
       - name: crop_video_axis_src_agent
         type: crop_video_axis_src
-        initiator_responder: "RESPONDER"
+        initiator_responder: "INITIATOR"
       analysis_components:
       - name: crop_video_pred
         type: crop_video_predictor
