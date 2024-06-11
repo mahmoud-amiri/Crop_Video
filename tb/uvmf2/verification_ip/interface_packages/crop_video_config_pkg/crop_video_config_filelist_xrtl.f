@@ -1,3 +1,0 @@
-$UVMF_VIP_LIBRARY_HOME/interface_packages/crop_video_config_pkg/src/crop_video_config_if.sv
-$UVMF_VIP_LIBRARY_HOME/interface_packages/crop_video_config_pkg/src/crop_video_config_monitor_bfm.sv
-$UVMF_VIP_LIBRARY_HOME/interface_packages/crop_video_config_pkg/src/crop_video_config_driver_bfm.sv

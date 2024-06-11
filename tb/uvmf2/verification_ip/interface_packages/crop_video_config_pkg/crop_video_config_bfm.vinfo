@@ -1,6 +1,0 @@
-@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.vinfo
-@use crop_video_config_pkg_hdl.vinfo
-+incdir+@vinfodir
-src/crop_video_config_if.sv
-src/crop_video_config_driver_bfm.sv
-src/crop_video_config_monitor_bfm.sv
