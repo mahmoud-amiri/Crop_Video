@@ -12,7 +12,7 @@ module M00_AXIS #(
 	input wire M_AXIS_ACLK,
     input wire M_AXIS_ARESETN,
 	output reg [C_M_AXIS_TDATA_WIDTH-1:0] M_AXIS_TDATA,
-    output reg M_AXIS_TVALID,
+    output wire M_AXIS_TVALID,
     input wire M_AXIS_TREADY,
 	output wire [(C_M_AXIS_TDATA_WIDTH/8)-1 : 0] M_AXIS_TSTRB,
 	output reg  M_AXIS_TLAST,
@@ -43,13 +43,14 @@ module M00_AXIS #(
     end
 
     // Read operation
+    assign M_AXIS_TVALID = !empty;
     always @(posedge M_AXIS_ACLK) begin
         if (!M_AXIS_ARESETN) begin
             rd_ptr <= 0;
             M_AXIS_TDATA <= 0;
-			M_AXIS_TVALID <= 0;
+			// M_AXIS_TVALID <= 0;
         end else begin
-			M_AXIS_TVALID <= !empty;
+			// M_AXIS_TVALID <= !empty;
             M_AXIS_TDATA <= mem_data[rd_ptr];
             M_AXIS_TLAST <= mem_last[rd_ptr];
             M_AXIS_TUSER <= mem_user[rd_ptr];

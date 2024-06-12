@@ -90,15 +90,15 @@ add wave -noupdate -expand -group top /hdl_top/crop_vid_inst/user_out
 add wave -noupdate -expand -group top /hdl_top/crop_vid_inst/last_out
 add wave -noupdate -expand -group top /hdl_top/crop_vid_inst/wr_en
 add wave -noupdate -expand -group top /hdl_top/crop_vid_inst/full
-add wave -noupdate -expand -group top /hdl_top/crop_vid_inst/x
-add wave -noupdate -expand -group top /hdl_top/crop_vid_inst/y
+add wave -noupdate -expand -group top -radix unsigned /hdl_top/crop_vid_inst/x
+add wave -noupdate -expand -group top -radix unsigned /hdl_top/crop_vid_inst/y
 add wave -noupdate -expand -group top /hdl_top/crop_vid_inst/cropping
 add wave -noupdate -expand -group top -radix unsigned /hdl_top/crop_vid_inst/cropped_data
 add wave -noupdate -expand -group top /hdl_top/crop_vid_inst/cropped_valid
 add wave -noupdate -expand -group top /hdl_top/crop_vid_inst/cropped_last
 add wave -noupdate -expand -group top /hdl_top/crop_vid_inst/cropped_user
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {186089 ps} 0}
+WaveRestoreCursors {{Cursor 1} {239257 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 402
 configure wave -valuecolwidth 129
@@ -114,4 +114,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {18582272 ps}
+WaveRestoreZoom {166670 ps} {311844 ps}

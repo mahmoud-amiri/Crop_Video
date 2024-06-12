@@ -98,8 +98,8 @@
 	 // FSM states
     // Reading and cropping data
 
-	assign cropped_last = ((x == (crop_x + crop_width - 1)) ? 1 : 0) & cropped_valid;
-	assign cropped_user = ((x == crop_x && y == crop_y) ? 1 : 0) & cropped_valid;
+	assign cropped_last = ((x == (crop_x + crop_width)) ? 1 : 0) & cropped_valid;
+	assign cropped_user = ((x == crop_x +1 && y == crop_y) ? 1 : 0) & cropped_valid;
 
     always @(posedge clk) begin
         if (!resetn) begin
@@ -107,49 +107,31 @@
             y <= 0;
             cropping <= 0;
             cropped_valid <= 0;
-            // cropped_last <= 0;
-            // cropped_user <= 0;
         end else begin
+
+			if (last_in) begin
+				x <= 0;
+				y <= y + 1;
+			end else if (user_in) begin	
+				x <= 1;
+				y <= 0;
+			end else begin
+				x <= x + 1;
+			end
+
             if (!empty && !full) begin
                 read_en <= 1;
-				// cropped_last <= 0;
-				// cropped_user <= 0;
                 if (x >= crop_x && x < crop_x + crop_width &&
                     y >= crop_y && y < crop_y + crop_height) begin
                     cropped_data <= data_in;
                     cropped_valid <= 1;
-
-					// if (x == crop_x && y == crop_y) begin
-					// 	cropped_user <= 1;	
-					// end else begin
-					// 	cropped_user <= 0;
-					// end
-
-					// if (x == (crop_x + crop_width - 1)) begin
-					// 	cropped_last <= 1;	
-					// end else begin
-					// 	cropped_last <= 0;
-					// end
-
                 end else begin
                     cropped_valid <= 0;
-                end
-
-				
-
-                if (last_in) begin
-                    x <= 0;
-                    y <= y + 1;
-				end else if (user_in) begin	
-					x <= 0;
-                    y <= 0;
-                end else begin
-                    x <= x + 1;
                 end
             end else begin
                 read_en <= 0;
             end
-
+			
 			last_out <= cropped_last;
 			user_out <= cropped_user;
 			data_out <= cropped_data;
