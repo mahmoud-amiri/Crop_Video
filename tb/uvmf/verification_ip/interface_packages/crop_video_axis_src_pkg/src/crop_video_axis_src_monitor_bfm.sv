@@ -194,7 +194,7 @@ end
     // exited with captured values, it is then called again to wait for and observe 
     // the next transfer. One clock cycle is consumed between calls to do_monitor.
     // Wait for a valid transaction
-    // while (m00_axis_tvalid_i !== 1'b1) @(posedge clk_i);
+    while (m00_axis_tvalid_i !== 1'b1) @(posedge clk_i);
 
     // Capture the relevant signal values
     crop_video_axis_src_monitor_struct.m00_axis_tready = m00_axis_tready_i; 
@@ -203,9 +203,8 @@ end
     crop_video_axis_src_monitor_struct.m00_axis_tuser = m00_axis_tuser_i;
     crop_video_axis_src_monitor_struct.m00_axis_tdata = m00_axis_tdata_i; 
     crop_video_axis_src_monitor_struct.m00_axis_tstrb = m00_axis_tstrb_i;  
-    $display("monitor : m00_axis_tready: %d", m00_axis_tready_i);
     // Wait for the transaction to complete
-    // while (m00_axis_tvalid_i === 1'b1) @(posedge clk_i);
+    while (m00_axis_tvalid_i === 1'b1) @(posedge clk_i);
     // pragma uvmf custom do_monitor end
   endtask         
   

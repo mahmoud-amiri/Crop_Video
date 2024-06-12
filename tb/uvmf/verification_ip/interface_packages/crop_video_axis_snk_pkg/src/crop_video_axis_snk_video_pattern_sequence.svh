@@ -90,9 +90,9 @@ class crop_video_axis_snk_video_pattern_sequence #(
             GRADIENT: generate_gradient(req, x, y);
           endcase
 
-          req.s00_axis_tvalid = 1;
-          req.s00_axis_tlast = (x == frame_width - 1) ? 1 : 0;
-          req.s00_axis_tuser = (x == 0 && y == 0) ? 1 : 0;
+          req.s00_axis_tvalid = 1'b1;
+          req.s00_axis_tlast = (x == frame_width - 1) ? 1'b1 : 1'b0;
+          req.s00_axis_tuser = (x == 0 && y == 0) ? 1'b1 : 1'b0;
 
           start_item(req);
           finish_item(req);

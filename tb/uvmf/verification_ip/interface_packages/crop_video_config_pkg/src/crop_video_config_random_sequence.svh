@@ -41,6 +41,8 @@ class crop_video_config_random_sequence
       // Randomize the transaction
       if(!req.randomize()) `uvm_fatal("SEQ", "crop_video_config_random_sequence::body()-crop_video_config_transaction randomization failed")
       // Send the transaction to the crop_video_config_driver_bfm via the sequencer and crop_video_config_driver.
+      req.crop_x = 0;
+      req.crop_y = 0;
       finish_item(req);
       `uvm_info("SEQ", {"Response:",req.convert2string()},UVM_MEDIUM)
 

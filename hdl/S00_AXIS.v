@@ -13,7 +13,11 @@
 	)
 	(
 		// Users to add ports here
-
+		output wire [C_S_AXIS_TDATA_WIDTH-1 : 0] data,
+		output wire last,
+		output wire user,
+		output wire empty,
+		input wire read_en,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -30,7 +34,9 @@
 		// Indicates boundary of last packet
 		input wire  S_AXIS_TLAST,
 		// Data is in valid
-		input wire  S_AXIS_TVALID
+		input wire  S_AXIS_TVALID,
+
+		input wire  S_AXIS_TUSER
 	);
 	// function called clogb2 that returns an integer which has the 
 	// value of the ceiling of the log base 2.
@@ -129,7 +135,7 @@
 	            write_pointer <= write_pointer + 1;
 	            writes_done <= 1'b0;
 	          end
-	          if ((write_pointer == NUMBER_OF_INPUT_WORDS-1)|| S_AXIS_TLAST)
+	          if ((write_pointer == NUMBER_OF_INPUT_WORDS-1))//|| S_AXIS_TLAST)
 	            begin
 	              // reads_done is asserted when NUMBER_OF_INPUT_WORDS numbers of streaming data 
 	              // has been written to the FIFO which is also marked by S_AXIS_TLAST(kept for optional usage).
@@ -142,26 +148,56 @@
 	assign fifo_wren = S_AXIS_TVALID && axis_tready;
 
 	// FIFO Implementation
-	generate 
-	  for(byte_index=0; byte_index<= (C_S_AXIS_TDATA_WIDTH/8-1); byte_index=byte_index+1)
-	  begin:FIFO_GEN
+	// generate 
+	//   for(byte_index=0; byte_index<= (C_S_AXIS_TDATA_WIDTH/8-1); byte_index=byte_index+1)
+	//   begin:FIFO_GEN
 
-	    reg  [(C_S_AXIS_TDATA_WIDTH/4)-1:0] stream_data_fifo [0 : NUMBER_OF_INPUT_WORDS-1];
+	//     reg  [(C_S_AXIS_TDATA_WIDTH/4)-1:0] stream_data_fifo [0 : NUMBER_OF_INPUT_WORDS-1];
 
-	    // Streaming input data is stored in FIFO
+	//     // Streaming input data is stored in FIFO
 
-	    always @( posedge S_AXIS_ACLK )
-	    begin
-	      if (fifo_wren)// && S_AXIS_TSTRB[byte_index])
-	        begin
-	          stream_data_fifo[write_pointer] <= S_AXIS_TDATA[(byte_index*8+7) -: 8];
-	        end  
-	    end  
-	  end		
-	endgenerate
+	//     always @( posedge S_AXIS_ACLK )
+	//     begin
+	//       if (fifo_wren)// && S_AXIS_TSTRB[byte_index])
+	//         begin
+	//           stream_data_fifo[write_pointer] <= S_AXIS_TDATA[(byte_index*8+7) -: 8];
+	//         end  
+	//     end  
+	//   end		
+	// endgenerate
 
 	// Add user logic here
+	reg [C_S_AXIS_TDATA_WIDTH-1:0] read_pointer;
+    reg [C_S_AXIS_TDATA_WIDTH-1:0] fifo_data_out [0:NUMBER_OF_INPUT_WORDS-1];
+	reg [0:0] fifo_user_out [0:NUMBER_OF_INPUT_WORDS-1];
+	reg [0:0] fifo_last_out [0:NUMBER_OF_INPUT_WORDS-1];
+    
+    assign data = fifo_data_out[read_pointer];
+	assign user = fifo_user_out[read_pointer];
+	assign last = fifo_last_out[read_pointer];
+    assign empty = (read_pointer == write_pointer);
+    
+    always @(posedge S_AXIS_ACLK)
+    begin
+        if(!S_AXIS_ARESETN)
+        begin
+            read_pointer <= 0;
+        end
+        else if(read_en && !empty)
+        begin
+            read_pointer <= read_pointer + 1;
+        end
+    end
 
+    always @(posedge S_AXIS_ACLK)
+    begin
+        if(fifo_wren)
+        begin
+            fifo_data_out[write_pointer] <= S_AXIS_TDATA;
+			fifo_user_out[write_pointer] <= S_AXIS_TUSER;
+			fifo_last_out[write_pointer] <= S_AXIS_TLAST;
+        end
+    end
 	// User logic ends
 
 	endmodule

@@ -263,7 +263,6 @@ end
     // m00_axis_aclk_o <= crop_video_axis_src_initiator_struct.m00_axis_aclk;  //     
     // m00_axis_aresetn_o <= crop_video_axis_src_initiator_struct.m00_axis_aresetn;
     m00_axis_tready_o <= crop_video_axis_src_initiator_struct.m00_axis_tready;
-    $display("driver : m00_axis_tready: %d", crop_video_axis_src_initiator_struct.m00_axis_tready);
     responder_struct = crop_video_axis_src_responder_struct;
   endtask        
 // pragma uvmf custom initiate_and_get_response end
