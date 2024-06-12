@@ -86,9 +86,8 @@ import uvmf_base_pkg_hdl::*;
   // Instantiate your DUT here
   // These DUT's instantiated to show verilog and vhdl instantiation
   crop_vid #(
-    .C_S00_AXIS_TDATA_WIDTH(32),
-    .C_M00_AXIS_TDATA_WIDTH(32),
-    .C_M00_AXIS_START_COUNT(32)
+    .C_AXIS_TDATA_WIDTH(32),
+    .C_AXIS_FIFO_DEPTH(16)
   ) crop_vid_inst (
     .crop_x(crop_video_config_agent_bus.crop_x),
     .crop_y(crop_video_config_agent_bus.crop_y),

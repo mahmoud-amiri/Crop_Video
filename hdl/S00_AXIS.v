@@ -1,203 +1,83 @@
-    
-    `timescale 1 ns / 1 ps
+module S00_AXIS #(
+    parameter C_S_AXIS_TDATA_WIDTH = 32,
+    parameter C_S_AXIS_FIFO_DEPTH = 16
+) (
+    input wire S_AXIS_ACLK,
+    input wire S_AXIS_ARESETN,
+    // AXI Stream slave interface
+    input wire S_AXIS_TVALID,
+    output wire S_AXIS_TREADY,
+    input wire [C_S_AXIS_TDATA_WIDTH-1:0] S_AXIS_TDATA,
+	input wire [(C_S_AXIS_TDATA_WIDTH/8)-1 : 0] S_AXIS_TSTRB,
+	input wire  S_AXIS_TUSER,
+	input wire  S_AXIS_TLAST,
+    // Read interface
+    input wire rd_en,
+    output reg [C_S_AXIS_TDATA_WIDTH-1:0] data_out,
+    output reg full,
+    output reg empty,
+	output reg last_out,
+	output reg user_out
+);
 
-	module S00_AXIS #
-	(
-		// Users to add parameters here
+    // Internal signals
+    reg [C_S_AXIS_TDATA_WIDTH-1:0] mem_data [0:C_S_AXIS_FIFO_DEPTH-1];
+	reg [0:0] mem_user [0:C_S_AXIS_FIFO_DEPTH-1];
+	reg [0:0] mem_last [0:C_S_AXIS_FIFO_DEPTH-1];
+    reg [$clog2(C_S_AXIS_FIFO_DEPTH):0] wr_ptr;
+    reg [$clog2(C_S_AXIS_FIFO_DEPTH):0] rd_ptr;
+    reg [$clog2(C_S_AXIS_FIFO_DEPTH+1):0] fifo_cnt;
 
-		// User parameters ends
-		// Do not modify the parameters beyond this line
-
-		// AXI4Stream sink: Data Width
-		parameter integer C_S_AXIS_TDATA_WIDTH	= 32
-	)
-	(
-		// Users to add ports here
-		output wire [C_S_AXIS_TDATA_WIDTH-1 : 0] data,
-		output wire last,
-		output wire user,
-		output wire empty,
-		input wire read_en,
-		// User ports ends
-		// Do not modify the ports beyond this line
-
-		// AXI4Stream sink: Clock
-		input wire  S_AXIS_ACLK,
-		// AXI4Stream sink: Reset
-		input wire  S_AXIS_ARESETN,
-		// Ready to accept data in
-		output wire  S_AXIS_TREADY,
-		// Data in
-		input wire [C_S_AXIS_TDATA_WIDTH-1 : 0] S_AXIS_TDATA,
-		// Byte qualifier
-		input wire [(C_S_AXIS_TDATA_WIDTH/8)-1 : 0] S_AXIS_TSTRB,
-		// Indicates boundary of last packet
-		input wire  S_AXIS_TLAST,
-		// Data is in valid
-		input wire  S_AXIS_TVALID,
-
-		input wire  S_AXIS_TUSER
-	);
-	// function called clogb2 that returns an integer which has the 
-	// value of the ceiling of the log base 2.
-	function integer clogb2 (input integer bit_depth);
-	  begin
-	    for(clogb2=0; bit_depth>0; clogb2=clogb2+1)
-	      bit_depth = bit_depth >> 1;
-	  end
-	endfunction
-
-	// Total number of input data.
-	localparam NUMBER_OF_INPUT_WORDS  = 8;
-	// bit_num gives the minimum number of bits needed to address 'NUMBER_OF_INPUT_WORDS' size of FIFO.
-	localparam bit_num  = clogb2(NUMBER_OF_INPUT_WORDS-1);
-	// Define the states of state machine
-	// The control state machine oversees the writing of input streaming data to the FIFO,
-	// and outputs the streaming data from the FIFO
-	parameter [1:0] IDLE = 1'b0,        // This is the initial/idle state 
-
-	                WRITE_FIFO  = 1'b1; // In this state FIFO is written with the
-	                                    // input stream data S_AXIS_TDATA 
-	wire  	axis_tready;
-	// State variable
-	reg mst_exec_state;  
-	// FIFO implementation signals
-	genvar byte_index;     
-	// FIFO write enable
-	wire fifo_wren;
-	// FIFO full flag
-	reg fifo_full_flag;
-	// FIFO write pointer
-	reg [bit_num-1:0] write_pointer;
-	// sink has accepted all the streaming data and stored in FIFO
-	  reg writes_done;
-	// I/O Connections assignments
-
-	assign S_AXIS_TREADY	= axis_tready;
-	// Control state machine implementation
-	always @(posedge S_AXIS_ACLK) 
-	begin  
-	  if (!S_AXIS_ARESETN) 
-	  // Synchronous reset (active low)
-	    begin
-	      mst_exec_state <= IDLE;
-	    end  
-	  else
-	    case (mst_exec_state)
-	      IDLE: 
-	        // The sink starts accepting tdata when 
-	        // there tvalid is asserted to mark the
-	        // presence of valid streaming data 
-	          if (S_AXIS_TVALID)
-	            begin
-	              mst_exec_state <= WRITE_FIFO;
-	            end
-	          else
-	            begin
-	              mst_exec_state <= IDLE;
-	            end
-	      WRITE_FIFO: 
-	        // When the sink has accepted all the streaming input data,
-	        // the interface swiches functionality to a streaming master
-	        if (writes_done)
-	          begin
-	            mst_exec_state <= IDLE;
-	          end
-	        else
-	          begin
-	            // The sink accepts and stores tdata 
-	            // into FIFO
-	            mst_exec_state <= WRITE_FIFO;
-	          end
-
-	    endcase
-	end
-	// AXI Streaming Sink 
-	// 
-	// The example design sink is always ready to accept the S_AXIS_TDATA  until
-	// the FIFO is not filled with NUMBER_OF_INPUT_WORDS number of input words.
-	assign axis_tready = ((mst_exec_state == WRITE_FIFO) && (write_pointer <= NUMBER_OF_INPUT_WORDS-1));
-
-	always@(posedge S_AXIS_ACLK)
-	begin
-	  if(!S_AXIS_ARESETN)
-	    begin
-	      write_pointer <= 0;
-	      writes_done <= 1'b0;
-	    end  
-	  else
-	    if (write_pointer <= NUMBER_OF_INPUT_WORDS-1)
-	      begin
-	        if (fifo_wren)
-	          begin
-	            // write pointer is incremented after every write to the FIFO
-	            // when FIFO write signal is enabled.
-	            write_pointer <= write_pointer + 1;
-	            writes_done <= 1'b0;
-	          end
-	          if ((write_pointer == NUMBER_OF_INPUT_WORDS-1))//|| S_AXIS_TLAST)
-	            begin
-	              // reads_done is asserted when NUMBER_OF_INPUT_WORDS numbers of streaming data 
-	              // has been written to the FIFO which is also marked by S_AXIS_TLAST(kept for optional usage).
-	              writes_done <= 1'b1;
-	            end
-	      end  
-	end
-
-	// FIFO write enable generation
-	assign fifo_wren = S_AXIS_TVALID && axis_tready;
-
-	// FIFO Implementation
-	// generate 
-	//   for(byte_index=0; byte_index<= (C_S_AXIS_TDATA_WIDTH/8-1); byte_index=byte_index+1)
-	//   begin:FIFO_GEN
-
-	//     reg  [(C_S_AXIS_TDATA_WIDTH/4)-1:0] stream_data_fifo [0 : NUMBER_OF_INPUT_WORDS-1];
-
-	//     // Streaming input data is stored in FIFO
-
-	//     always @( posedge S_AXIS_ACLK )
-	//     begin
-	//       if (fifo_wren)// && S_AXIS_TSTRB[byte_index])
-	//         begin
-	//           stream_data_fifo[write_pointer] <= S_AXIS_TDATA[(byte_index*8+7) -: 8];
-	//         end  
-	//     end  
-	//   end		
-	// endgenerate
-
-	// Add user logic here
-	reg [C_S_AXIS_TDATA_WIDTH-1:0] read_pointer;
-    reg [C_S_AXIS_TDATA_WIDTH-1:0] fifo_data_out [0:NUMBER_OF_INPUT_WORDS-1];
-	reg [0:0] fifo_user_out [0:NUMBER_OF_INPUT_WORDS-1];
-	reg [0:0] fifo_last_out [0:NUMBER_OF_INPUT_WORDS-1];
-    
-    assign data = fifo_data_out[read_pointer];
-	assign user = fifo_user_out[read_pointer];
-	assign last = fifo_last_out[read_pointer];
-    assign empty = (read_pointer == write_pointer);
-    
-    always @(posedge S_AXIS_ACLK)
-    begin
-        if(!S_AXIS_ARESETN)
-        begin
-            read_pointer <= 0;
-        end
-        else if(read_en && !empty)
-        begin
-            read_pointer <= read_pointer + 1;
+    // Write operation with AXI Stream interface
+    always @(posedge S_AXIS_ACLK) begin
+        if (!S_AXIS_ARESETN) begin
+            wr_ptr <= 0;
+        end else if (S_AXIS_TVALID && !full) begin
+            mem_data[wr_ptr] <= S_AXIS_TDATA;
+			mem_user[wr_ptr] <= S_AXIS_TUSER;
+			mem_last[wr_ptr] <= S_AXIS_TLAST;
+            wr_ptr <= (wr_ptr + 1) % C_S_AXIS_FIFO_DEPTH;
         end
     end
 
-    always @(posedge S_AXIS_ACLK)
-    begin
-        if(fifo_wren)
-        begin
-            fifo_data_out[write_pointer] <= S_AXIS_TDATA;
-			fifo_user_out[write_pointer] <= S_AXIS_TUSER;
-			fifo_last_out[write_pointer] <= S_AXIS_TLAST;
+    // Read operation
+    always @(posedge S_AXIS_ACLK) begin
+        if (!S_AXIS_ARESETN) begin
+            rd_ptr <= 0;
+            data_out <= 0;
+        end else if (rd_en && !empty) begin
+            data_out <= mem_data[rd_ptr];
+			user_out <= mem_user[rd_ptr];
+			last_out <= mem_last[rd_ptr];
+            rd_ptr <= (rd_ptr + 1) % C_S_AXIS_FIFO_DEPTH;
         end
     end
-	// User logic ends
 
-	endmodule
+    // FIFO count management
+    always @(posedge S_AXIS_ACLK) begin
+        if (!S_AXIS_ARESETN) begin
+            fifo_cnt <= 0;
+        end else begin
+            if (S_AXIS_TVALID && !full && !(rd_en && !empty)) begin
+                fifo_cnt <= fifo_cnt + 1;
+            end else if (rd_en && !empty && !(S_AXIS_TVALID && !full)) begin
+                fifo_cnt <= fifo_cnt - 1;
+            end
+        end
+    end
+
+    // FIFO status flags
+    always @(posedge S_AXIS_ACLK) begin
+        if (!S_AXIS_ARESETN) begin
+            full <= 0;
+            empty <= 1;
+        end else begin
+            full <= (fifo_cnt >= C_S_AXIS_FIFO_DEPTH - 1);
+            empty <= (fifo_cnt <= 0);
+        end
+    end
+
+    // AXI Stream ready signal
+    assign S_AXIS_TREADY = !full;
+
+endmodule

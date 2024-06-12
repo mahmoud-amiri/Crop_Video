@@ -30,7 +30,7 @@ class crop_video_axis_snk_video_pattern_sequence #(
                            ))
 
   // pragma uvmf custom class_item_additional begin
-    typedef enum {SOLID_COLOR, CHECKERBOARD, GRADIENT} pattern_t;
+    typedef enum {SOLID_COLOR, CHECKERBOARD, GRADIENT, COUNTER} pattern_t;
     
     // Parameters
     rand pattern_t pattern_type;
@@ -58,15 +58,19 @@ class crop_video_axis_snk_video_pattern_sequence #(
     req.s00_axis_tdata = (x + y) & 32'hFFFFFFFF;
   endfunction
 
+  virtual function void generate_counter(ref crop_video_axis_snk_transaction req, int x, int y);
+    req.s00_axis_tdata = x & 32'hFFFFFFFF;
+  endfunction
+
   virtual task body();
     int frame_count = 10;  // Number of frames to send
 
     if (!uvm_config_db#(int unsigned)::get(null, "", "frame_width", frame_width))
-      frame_width = 1920;   // Default frame width
+      frame_width = 100;//1920;   // Default frame width
     if (!uvm_config_db#(int unsigned)::get(null, "", "frame_height", frame_height))
-      frame_height = 1080;  // Default frame height
+      frame_height = 100;//1080;  // Default frame height
     if (!uvm_config_db#(pattern_t)::get(null, "", "pattern_type", pattern_type))
-      pattern_type = CHECKERBOARD;  // Default pattern
+      pattern_type = COUNTER;  // Default pattern
     if (!uvm_config_db#(bit [31:0])::get(null, "", "color", color))
       color = 32'hFF00FF00;  // Default color for solid color pattern
     // Construct the transaction
@@ -88,6 +92,7 @@ class crop_video_axis_snk_video_pattern_sequence #(
             SOLID_COLOR: generate_solid_color(req, color);
             CHECKERBOARD: generate_checkerboard(req, x, y);
             GRADIENT: generate_gradient(req, x, y);
+            COUNTER: generate_counter(req, x, y);
           endcase
 
           req.s00_axis_tvalid = 1'b1;
