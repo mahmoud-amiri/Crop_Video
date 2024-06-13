@@ -79,7 +79,7 @@ class crop_video_predictor #(
   // FUNCTION: new
   function new(string name, uvm_component parent);
      super.new(name,parent);
-    `uvm_warning("PREDICTOR_REVIEW", "This predictor has been created either through generation or re-generation with merging.  Remove this warning after the predictor has been reviewed.")
+    // `uvm_warning("PREDICTOR_REVIEW", "This predictor has been created either through generation or re-generation with merging.  Remove this warning after the predictor has been reviewed.")
   // pragma uvmf custom new begin
     srv = new(); 
   // pragma uvmf custom new end
@@ -101,7 +101,16 @@ class crop_video_predictor #(
   function string int_to_str(int num);
     automatic string str0 = "";
     string digit_str;
-    int digit;
+    int digit;//#CHANGE_ME: it should support negetive value as well
+    if (num == 0) begin
+      str0 = "0";
+    end
+
+    if (num < 0) begin
+      str0 = "-";
+      num = num * (-1);
+    end
+
     while(num > 0) begin
         digit = num % 10;
         num = num / 10;
@@ -137,7 +146,7 @@ class crop_video_predictor #(
     $display("data_to_send:");
     $display(data_to_send);
     srv.send(data_to_send);
-    `uvm_info("PRED", {"Sent Data: ", data_to_send}, UVM_MEDIUM)
+    // `uvm_info("PRED", {"Sent Data: ", data_to_send}, UVM_MEDIUM)
 
     received_data = srv.receive();
     $display("received_data:");
@@ -148,7 +157,7 @@ class crop_video_predictor #(
     $sscanf(received_data["m00_axis_tvalid"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tvalid);
     $sscanf(received_data["m00_axis_tuser"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tuser);
     $sscanf(received_data["m00_axis_tready"], "%d",crop_video_sb_ap_output_transaction.m00_axis_tready);
-    `uvm_info("PRED", {"Received Data: ", received_data}, UVM_MEDIUM)
+    // `uvm_info("PRED", {"Received Data: ", received_data}, UVM_MEDIUM)
     // Code for sending output transaction out through crop_video_sb_ap
     // Please note that each broadcasted transaction should be a different object than previously 
     // broadcasted transactions.  Creation of a different object is done by constructing the transaction 

@@ -69,9 +69,12 @@ class crop_video_ext_sequence #(
     join_none
     // Start INITIATOR sequences here
     fork
-      repeat (25) crop_video_config_agent_random_seq.start(crop_video_config_agent_sequencer);
-      repeat (25) crop_video_axis_snk_video_pattern_seq.start(crop_video_axis_snk_agent_sequencer);
-      repeat (25) crop_video_axis_src_agent_random_seq.start(crop_video_axis_src_agent_sequencer);
+      repeat (25) begin
+        crop_video_config_agent_random_seq.start(crop_video_config_agent_sequencer);
+        crop_video_axis_src_agent_random_seq.start(crop_video_axis_src_agent_sequencer);
+        crop_video_axis_snk_video_pattern_seq.start(crop_video_axis_snk_agent_sequencer);
+        
+      end
     join
 
 // crop_video_env_seq.start(top_configuration.vsqr);

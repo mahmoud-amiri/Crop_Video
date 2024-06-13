@@ -198,7 +198,7 @@ end
     crop_video_axis_snk_monitor_struct.s00_axis_tready = s00_axis_tready_i; 
 
     // Wait for the transaction to complete
-    while (s00_axis_tvalid_i === 1'b1) @(posedge clk_i);
+    // while (s00_axis_tvalid_i === 1'b1) @(posedge clk_i);
     // pragma uvmf custom do_monitor end
   endtask         
   

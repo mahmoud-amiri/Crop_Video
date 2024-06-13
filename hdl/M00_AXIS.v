@@ -48,6 +48,8 @@ module M00_AXIS #(
             rd_ptr <= 0;
             M_AXIS_TDATA <= 0;
 			M_AXIS_TVALID <= 0;
+            M_AXIS_TLAST <= 0;
+            M_AXIS_TUSER <= 0;
         end else begin
 			M_AXIS_TVALID <= !empty;
             M_AXIS_TDATA <= mem_data[rd_ptr];

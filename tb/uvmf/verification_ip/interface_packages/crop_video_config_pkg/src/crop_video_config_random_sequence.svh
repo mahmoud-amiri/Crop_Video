@@ -34,7 +34,7 @@ class crop_video_config_random_sequence
   // start(sequencerHandle) task.
   //
   task body();
-  
+      `uvm_info("SEQ", "Starting sequence Config", UVM_LOW)
       // Construct the transaction
       req=crop_video_config_transaction::type_id::create("req");
       start_item(req);
@@ -43,11 +43,11 @@ class crop_video_config_random_sequence
       // Send the transaction to the crop_video_config_driver_bfm via the sequencer and crop_video_config_driver.
       req.crop_x = 0;
       req.crop_y = 0;
-      req.crop_width = 5;
-      req.crop_height = 3;
+      req.crop_width = 10;
+      req.crop_height = 5;
       finish_item(req);
       `uvm_info("SEQ", {"Response:",req.convert2string()},UVM_MEDIUM)
-
+      `uvm_info("SEQ", "Sequence complete Config", UVM_LOW)
   endtask
 
 endclass: crop_video_config_random_sequence

@@ -66,7 +66,7 @@ class crop_video_axis_snk_video_pattern_sequence #(
     int frame_count = 1;  // Number of frames to send
 
     if (!uvm_config_db#(int unsigned)::get(null, "", "frame_width", frame_width))
-      frame_width = 10;//1920;   // Default frame width
+      frame_width = 20;//1920;   // Default frame width
     if (!uvm_config_db#(int unsigned)::get(null, "", "frame_height", frame_height))
       frame_height = 10;//1080;  // Default frame height
     if (!uvm_config_db#(pattern_t)::get(null, "", "pattern_type", pattern_type))
@@ -111,8 +111,8 @@ class crop_video_axis_snk_video_pattern_sequence #(
           wait_for_tready(req);
         end
       end
-      `uvm_info("SEQ", "Sequence completed Video Pattern", UVM_LOW)
     end
+     `uvm_info("SEQ", "Sequence completed Video Pattern", UVM_LOW)
   endtask
 
   virtual task wait_for_tready(crop_video_axis_snk_transaction req);

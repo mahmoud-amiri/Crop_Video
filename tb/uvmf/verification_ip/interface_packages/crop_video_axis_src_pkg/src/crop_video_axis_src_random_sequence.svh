@@ -46,7 +46,7 @@ class crop_video_axis_src_random_sequence #(
   // start(sequencerHandle) task.
   //
   task body();
-  
+      `uvm_info("SEQ", "Starting sequence src", UVM_LOW)
       // Construct the transaction
       req=crop_video_axis_src_transaction#(
                 .crop_video_axis_src_C_M00_AXIS_TDATA_WIDTH(crop_video_axis_src_C_M00_AXIS_TDATA_WIDTH),
@@ -60,7 +60,7 @@ class crop_video_axis_src_random_sequence #(
       req.m00_axis_tready = 1'b1;
       finish_item(req);
       `uvm_info("SEQ", {"Response:",req.convert2string()},UVM_MEDIUM)
-
+      `uvm_info("SEQ", "Sequence complete src", UVM_LOW)
   endtask
 
 endclass: crop_video_axis_src_random_sequence

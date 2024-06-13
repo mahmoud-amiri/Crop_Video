@@ -45,6 +45,8 @@ module S00_AXIS #(
         if (!S_AXIS_ARESETN) begin
             rd_ptr <= 0;
             data_out <= 0;
+            user_out <= 0;
+            last_out <= 0;
         end else if (rd_en && !empty) begin
             data_out <= mem_data[rd_ptr];
 			user_out <= mem_user[rd_ptr];

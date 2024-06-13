@@ -105,8 +105,14 @@
         if (!resetn) begin
             x <= 0;
             y <= 0;
+			read_en <= 0;
             cropping <= 0;
             cropped_valid <= 0;
+			cropped_data <= 0;
+			last_out <= 0;
+			user_out <= 0;
+			data_out <= 0;
+			wr_en <= 0;
         end else begin
 
 			if (last_in) begin

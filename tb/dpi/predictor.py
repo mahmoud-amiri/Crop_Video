@@ -3,13 +3,19 @@ from client_api import SocketClient
 if __name__ == "__main__":
     host = "localhost"
     port = 8081
-    data = []
+    data = {}
+    m00_axis_tdata = 0
+    m00_axis_tstrb = 0
+    m00_axis_tlast = 0
+    m00_axis_tvalid = 0
+    m00_axis_tuser = 0
+    m00_axis_tready = 0 
     client = SocketClient(host, port)
     if client.handshake():
         print("Handshake successful")
         while True:
             received_data = client.receive_large_data()
-            print(received_data)
+            # print(received_data)
             try:
                 print(f"received_data = {received_data}")
                 s00_axis_tdata = int(received_data["s00_axis_tdata"]) 
@@ -41,8 +47,11 @@ if __name__ == "__main__":
                         x = 0
                         y = y + 1
 
-                    if x >  crop_x and x < crop_x + crop_width and y >  crop_y and y < crop_y + crop_height: 
+                    if x >=  crop_x and x < crop_x + crop_width and y >=  crop_y and y < crop_y + crop_height: 
                         m00_axis_tvalid = 1
+                        m00_axis_tdata = s00_axis_tdata
+                    else:
+                        m00_axis_tvalid = 0
                         m00_axis_tdata = s00_axis_tdata
 
                     if x == crop_x and y == crop_y:
@@ -55,12 +64,12 @@ if __name__ == "__main__":
                     else:
                         m00_axis_tlast = 0
                 else:
-                    m00_axis_tdata = 0
+                    m00_axis_tdata = s00_axis_tdata
                     m00_axis_tstrb = s00_axis_tstrb
                     m00_axis_tlast = 0
                     m00_axis_tvalid = 0
                     m00_axis_tuser = 0
-                    m00_axis_tready = 0        
+                    m00_axis_tready = s00_axis_tready      
 
                 data["m00_axis_tdata"] = str(m00_axis_tdata)
                 data["m00_axis_tstrb"] = str(m00_axis_tstrb)
@@ -72,7 +81,7 @@ if __name__ == "__main__":
 
                 print("Processed data:", data)
             except ValueError:
-                print("Error: received_data['input'] is not a valid integer")
+                print("Error: received_data item(s) is not a valid integer")
                 data["m00_axis_tdata"] = '0'
                 data["m00_axis_tstrb"] = '0'
                 data["m00_axis_tlast"] = '0'
