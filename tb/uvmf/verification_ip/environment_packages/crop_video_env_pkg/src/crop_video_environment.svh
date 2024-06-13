@@ -103,7 +103,7 @@ class crop_video_environment  extends uvmf_environment_base #(
   endfunction
 
 // ****************************************************************************
-// FUNCTION: end_of_simulation_phase()
+// FUNCTION: end_of_simulation_phase() 
 // This function is executed just prior to executing run_phase.  This function
 // was added to the environment to sample environment configuration settings
 // just before the simulation exits time 0.  The configuration structure is 

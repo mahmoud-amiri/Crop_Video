@@ -187,7 +187,7 @@ end
     // the next transfer. One clock cycle is consumed between calls to do_monitor.
 
     // Wait for a valid transaction
-    while (s00_axis_tvalid_i !== 1'b1) @(posedge clk_i);
+    // while (s00_axis_tvalid_i !== 1'b1) @(posedge clk_i);
 
     // Capture the relevant signal values
     crop_video_axis_snk_monitor_struct.s00_axis_tdata = s00_axis_tdata_i;  

@@ -127,9 +127,9 @@
 
             if (!empty && !full) begin
                 read_en <= 1;
+				cropped_data <= data_in;
                 if (x >= crop_x && x < crop_x + crop_width &&
                     y >= crop_y && y < crop_y + crop_height) begin
-                    cropped_data <= data_in;
                     cropped_valid <= 1;
                 end else begin
                     cropped_valid <= 0;

@@ -328,6 +328,14 @@ bit first_transfer=1;
     @(posedge clk_i);
     // Reply using data recieved in the transaction handle.
     @(posedge clk_i);
+    @(posedge clk_i);
+    @(posedge clk_i);
+    @(posedge clk_i);
+    @(posedge clk_i);
+    @(posedge clk_i);
+    @(posedge clk_i);
+    @(posedge clk_i);
+    @(posedge clk_i);
   end
     // Wait for next transfer then gather info from intiator about the transfer.
     // Place the data into the crop_video_axis_src_initiator_struct.

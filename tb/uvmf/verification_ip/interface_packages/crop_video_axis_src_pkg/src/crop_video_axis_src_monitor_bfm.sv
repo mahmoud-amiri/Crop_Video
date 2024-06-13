@@ -160,7 +160,7 @@ end
 
 
   // ****************************************************************************  
-            
+  int first_time = 1;         
   task do_monitor(output crop_video_axis_src_monitor_s crop_video_axis_src_monitor_struct);
     //
     // Available struct members:
@@ -197,6 +197,17 @@ end
     // while (m00_axis_tvalid_i !== 1'b1) @(posedge clk_i);
 
     // Capture the relevant signal values
+    if (first_time ==  1)begin
+      @(posedge clk_i);
+      @(posedge clk_i);
+      @(posedge clk_i);
+      @(posedge clk_i);
+      @(posedge clk_i);
+      @(posedge clk_i);
+      @(posedge clk_i);
+      @(posedge clk_i);
+      first_time = 0;
+    end
     crop_video_axis_src_monitor_struct.m00_axis_tready = m00_axis_tready_i; 
     crop_video_axis_src_monitor_struct.m00_axis_tvalid = m00_axis_tvalid_i; 
     crop_video_axis_src_monitor_struct.m00_axis_tlast = m00_axis_tlast_i; 
