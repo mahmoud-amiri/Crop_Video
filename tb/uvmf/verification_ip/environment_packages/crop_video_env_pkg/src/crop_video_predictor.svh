@@ -111,55 +111,6 @@ class crop_video_predictor #(
     return str0;
   endfunction
 
-  // // FUNCTION: write_crop_video_axis_snk_agent_ae
-  // // Transactions received through crop_video_axis_snk_agent_ae initiate the execution of this function.
-  // // This function performs prediction of DUT output values based on DUT input, configuration and state
-  // virtual function void write_crop_video_axis_snk_agent_ae(crop_video_axis_snk_transaction #() t);
-  //   // pragma uvmf custom crop_video_axis_snk_agent_ae_predictor begin
-  //   json_assoc_t   data_to_send, received_data;
-  //   string res;
-  //   crop_video_axis_snk_agent_ae_debug = t;
-  //   `uvm_info("PRED", "Transaction Received through crop_video_axis_snk_agent_ae", UVM_MEDIUM)
-  //   `uvm_info("PRED", {"            Data: ",t.convert2string()}, UVM_FULL)
-  //   // Construct one of each output transaction type.
-  //   crop_video_sb_ap_output_transaction = crop_video_sb_ap_output_transaction_t::type_id::create("crop_video_sb_ap_output_transaction");
-  //   //  UVMF_CHANGE_ME: Implement predictor model here.  
-  //   data_to_send["s00_axis_tdata"] = int_to_str(t.s00_axis_tdata);
-  //   data_to_send["s00_axis_tstrb"] = int_to_str(t.s00_axis_tstrb);
-  //   data_to_send["s00_axis_tlast"] = int_to_str(t.s00_axis_tlast);
-  //   data_to_send["s00_axis_tvalid"] = int_to_str(t.s00_axis_tvalid);
-  //   data_to_send["s00_axis_tuser"] = int_to_str(t.s00_axis_tuser);
-  //   data_to_send["s00_axis_tready"] = int_to_str(t.s00_axis_tready);
-  //   data_to_send["crop_x"] = int_to_str(sct.crop_x);
-  //   data_to_send["crop_y"] = int_to_str(sct.crop_y);
-  //   data_to_send["crop_width"] = int_to_str(sct.crop_width);
-  //   data_to_send["crop_height"] = int_to_str(sct.crop_height);
-  //   // $display("data_to_send:");
-  //   // $display(data_to_send);
-  //   srv.send(data_to_send);
-  //   `uvm_info("PRED", {"Sent Data: ", data_to_send}, UVM_MEDIUM)
-
-  //   received_data = srv.receive();
-  //   // $display("received_data:");
-  //   // $display(received_data);
-  //   $sscanf(received_data["m00_axis_tdata"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tdata);
-  //   $sscanf(received_data["m00_axis_tstrb"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tstrb);
-  //   $sscanf(received_data["m00_axis_tlast"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tlast);
-  //   $sscanf(received_data["m00_axis_tvalid"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tvalid);
-  //   $sscanf(received_data["m00_axis_tuser"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tuser);
-  //   $sscanf(received_data["m00_axis_tready"], "%d",crop_video_sb_ap_output_transaction.m00_axis_tready);
-  //   `uvm_info("PRED", {"Received Data: ", received_data}, UVM_MEDIUM)
-  //   // Code for sending output transaction out through crop_video_sb_ap
-  //   // Please note that each broadcasted transaction should be a different object than previously 
-  //   // broadcasted transactions.  Creation of a different object is done by constructing the transaction 
-  //   // using either new() or create().  Broadcasting a transaction object more than once to either the 
-  //   // same subscriber or multiple subscribers will result in unexpected and incorrect behavior.
-  //   crop_video_sb_ap.write(crop_video_sb_ap_output_transaction);
-  //   // pragma uvmf custom crop_video_axis_snk_agent_ae_predictor end
-  // endfunction
-
-
-//############################################################TEMP
   // FUNCTION: write_crop_video_axis_snk_agent_ae
   // Transactions received through crop_video_axis_snk_agent_ae initiate the execution of this function.
   // This function performs prediction of DUT output values based on DUT input, configuration and state
@@ -173,28 +124,31 @@ class crop_video_predictor #(
     // Construct one of each output transaction type.
     crop_video_sb_ap_output_transaction = crop_video_sb_ap_output_transaction_t::type_id::create("crop_video_sb_ap_output_transaction");
     //  UVMF_CHANGE_ME: Implement predictor model here.  
-    crop_video_sb_ap_output_transaction.m00_axis_tdata = t.s00_axis_tdata;
-    crop_video_sb_ap_output_transaction.m00_axis_tstrb = t.s00_axis_tstrb;
-    crop_video_sb_ap_output_transaction.m00_axis_tlast = t.s00_axis_tlast;
-    crop_video_sb_ap_output_transaction.m00_axis_tvalid = t.s00_axis_tvalid;
-    crop_video_sb_ap_output_transaction.m00_axis_tuser = t.s00_axis_tuser;
-    crop_video_sb_ap_output_transaction.m00_axis_tready = t.s00_axis_tready;
+    data_to_send["s00_axis_tdata"] = int_to_str(t.s00_axis_tdata);
+    data_to_send["s00_axis_tstrb"] = int_to_str(t.s00_axis_tstrb);
+    data_to_send["s00_axis_tlast"] = int_to_str(t.s00_axis_tlast);
+    data_to_send["s00_axis_tvalid"] = int_to_str(t.s00_axis_tvalid);
+    data_to_send["s00_axis_tuser"] = int_to_str(t.s00_axis_tuser);
+    data_to_send["s00_axis_tready"] = int_to_str(t.s00_axis_tready);
+    data_to_send["crop_x"] = int_to_str(sct.crop_x);
+    data_to_send["crop_y"] = int_to_str(sct.crop_y);
+    data_to_send["crop_width"] = int_to_str(sct.crop_width);
+    data_to_send["crop_height"] = int_to_str(sct.crop_height);
+    $display("data_to_send:");
+    $display(data_to_send);
+    srv.send(data_to_send);
+    `uvm_info("PRED", {"Sent Data: ", data_to_send}, UVM_MEDIUM)
 
-    // $display("data_to_send:");
-    // $display(data_to_send);
-    // srv.send(data_to_send);
-    // `uvm_info("PRED", {"Sent Data: ", data_to_send}, UVM_MEDIUM)
-
-    // received_data = srv.receive();
-    // $display("received_data:");
-    // $display(received_data);
-    // $sscanf(received_data["m00_axis_tdata"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tdata);
-    // $sscanf(received_data["m00_axis_tstrb"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tstrb);
-    // $sscanf(received_data["m00_axis_tlast"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tlast);
-    // $sscanf(received_data["m00_axis_tlast"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tlast);
-    // $sscanf(received_data["m00_axis_tuser"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tuser);
-    // $sscanf(received_data["m00_axis_tready"], "%d",crop_video_sb_ap_output_transaction.m00_axis_tready);
-    // `uvm_info("PRED", {"Received Data: ", received_data}, UVM_MEDIUM)
+    received_data = srv.receive();
+    $display("received_data:");
+    $display(received_data);
+    $sscanf(received_data["m00_axis_tdata"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tdata);
+    $sscanf(received_data["m00_axis_tstrb"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tstrb);
+    $sscanf(received_data["m00_axis_tlast"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tlast);
+    $sscanf(received_data["m00_axis_tvalid"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tvalid);
+    $sscanf(received_data["m00_axis_tuser"], "%d", crop_video_sb_ap_output_transaction.m00_axis_tuser);
+    $sscanf(received_data["m00_axis_tready"], "%d",crop_video_sb_ap_output_transaction.m00_axis_tready);
+    `uvm_info("PRED", {"Received Data: ", received_data}, UVM_MEDIUM)
     // Code for sending output transaction out through crop_video_sb_ap
     // Please note that each broadcasted transaction should be a different object than previously 
     // broadcasted transactions.  Creation of a different object is done by constructing the transaction 
@@ -203,11 +157,6 @@ class crop_video_predictor #(
     crop_video_sb_ap.write(crop_video_sb_ap_output_transaction);
     // pragma uvmf custom crop_video_axis_snk_agent_ae_predictor end
   endfunction
-//###########################################################
-
-
-
-
 
 
   // FUNCTION: write_crop_video_config_agent_ae
@@ -220,8 +169,6 @@ class crop_video_predictor #(
     `uvm_info("PRED", {"            Data: ",t.convert2string()}, UVM_FULL)
     // Construct one of each output transaction type.
     // crop_video_sb_ap_output_transaction = crop_video_sb_ap_output_transaction_t::type_id::create("crop_video_sb_ap_output_transaction");
-    
-    
     sct = t;
     // Code for sending output transaction out through crop_video_sb_ap
     // Please note that each broadcasted transaction should be a different object than previously 
@@ -231,6 +178,8 @@ class crop_video_predictor #(
     // crop_video_sb_ap.write(crop_video_sb_ap_output_transaction);
     // pragma uvmf custom crop_video_config_agent_ae_predictor end
   endfunction
+
+
 
 // pragma uvmf custom external begin
 virtual function void final_phase(uvm_phase phase);

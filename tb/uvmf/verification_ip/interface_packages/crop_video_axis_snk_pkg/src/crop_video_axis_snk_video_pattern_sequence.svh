@@ -63,19 +63,19 @@ class crop_video_axis_snk_video_pattern_sequence #(
   endfunction
 
   virtual task body();
-    int frame_count = 10;  // Number of frames to send
+    int frame_count = 1;  // Number of frames to send
 
     if (!uvm_config_db#(int unsigned)::get(null, "", "frame_width", frame_width))
-      frame_width = 100;//1920;   // Default frame width
+      frame_width = 10;//1920;   // Default frame width
     if (!uvm_config_db#(int unsigned)::get(null, "", "frame_height", frame_height))
-      frame_height = 100;//1080;  // Default frame height
+      frame_height = 10;//1080;  // Default frame height
     if (!uvm_config_db#(pattern_t)::get(null, "", "pattern_type", pattern_type))
       pattern_type = COUNTER;  // Default pattern
     if (!uvm_config_db#(bit [31:0])::get(null, "", "color", color))
       color = 32'hFF00FF00;  // Default color for solid color pattern
     // Construct the transaction
     
-    
+    `uvm_info("SEQ", "Starting sequence Video Pattern", UVM_LOW)
 
     for (int frame = 0; frame < frame_count; frame++) begin
       for (int y = 0; y < frame_height; y++) begin
@@ -99,35 +99,34 @@ class crop_video_axis_snk_video_pattern_sequence #(
           req.s00_axis_tlast = (x == frame_width - 1) ? 1'b1 : 1'b0;
           req.s00_axis_tuser = (x == 0 && y == 0) ? 1'b1 : 1'b0;
 
+          // start_item(req);
+          // finish_item(req);
+          // `uvm_info("SEQ", {"Response:",req.convert2string()},UVM_MEDIUM)
           start_item(req);
+          `uvm_info("SEQ", $sformatf("Starting item: Frame=%0d, X=%0d, Y=%0d, Data=%0h", frame, x, y, req.s00_axis_tdata), UVM_MEDIUM)
           finish_item(req);
-          `uvm_info("SEQ", {"Response:",req.convert2string()},UVM_MEDIUM)
+          `uvm_info("SEQ", $sformatf("Finished item: Frame=%0d, X=%0d, Y=%0d, Data=%0h", frame, x, y, req.s00_axis_tdata), UVM_MEDIUM)
 
+          // Wait for driver to be ready
+          wait_for_tready(req);
         end
+      end
+      `uvm_info("SEQ", "Sequence completed Video Pattern", UVM_LOW)
+    end
+  endtask
+
+  virtual task wait_for_tready(crop_video_axis_snk_transaction req);
+    forever begin
+      if (req.s00_axis_tready == 1'b1) begin
+        `uvm_info("SEQ", "tready is high, proceeding to next item", UVM_LOW)
+        break;
+      end
+      else begin
+        `uvm_info("SEQ", "tready is low, waiting", UVM_LOW)
+        #10;  // Wait for some time before checking again
       end
     end
   endtask
-  // TASK : body()
-  // This task is automatically executed when this sequence is started using the 
-  // start(sequencerHandle) task.
-  //
-  // task body();
-  //   begin
-  //     // Construct the transaction
-  //     req=crop_video_axis_snk_transaction#(
-  //               .crop_video_axis_snk_C_S00_AXIS_TDATA_WIDTH(crop_video_axis_snk_C_S00_AXIS_TDATA_WIDTH),
-  //               .crop_video_axis_snk_C_S00_AXIS_TDATA_WIDTH_8(crop_video_axis_snk_C_S00_AXIS_TDATA_WIDTH_8)
-  //               )::type_id::create("req");
-  //     start_item(req);
-  //     // Randomize the transaction
-  //     if(!req.randomize()) `uvm_fatal("SEQ", "crop_video_axis_snk_video_pattern_sequence::body()-ALU_in_transaction randomization failed")
-  //     // set the operation to be a reset
-  //     req.op = rst_op;
-  //     // Send the transaction to the ALU_in_driver_bfm via the sequencer and ALU_in_driver.
-  //     finish_item(req);
-  //     `uvm_info("SEQ", {"Response:",req.convert2string()},UVM_MEDIUM)
-  //   end
 
-  // endtask
 
 endclass: crop_video_axis_snk_video_pattern_sequence

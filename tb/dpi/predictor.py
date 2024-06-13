@@ -9,7 +9,7 @@ if __name__ == "__main__":
         print("Handshake successful")
         while True:
             received_data = client.receive_large_data()
-            
+            print(received_data)
             try:
                 print(f"received_data = {received_data}")
                 s00_axis_tdata = int(received_data["s00_axis_tdata"]) 

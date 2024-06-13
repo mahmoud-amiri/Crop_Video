@@ -44,7 +44,7 @@
 	reg last_out;
 	reg wr_en;
 	reg full;
-
+	// wire reset_MAXIS;
 
     // Crop logic
     reg [15:0] x, y;
@@ -94,7 +94,7 @@
 
 	
 
-
+	// assign reset_MAXIS = resetn & !user_in;
 	 // FSM states
     // Reading and cropping data
 
@@ -131,7 +131,7 @@
             end else begin
                 read_en <= 0;
             end
-			
+
 			last_out <= cropped_last;
 			user_out <= cropped_user;
 			data_out <= cropped_data;

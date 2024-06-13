@@ -12,7 +12,7 @@ module M00_AXIS #(
 	input wire M_AXIS_ACLK,
     input wire M_AXIS_ARESETN,
 	output reg [C_M_AXIS_TDATA_WIDTH-1:0] M_AXIS_TDATA,
-    output wire M_AXIS_TVALID,
+    output reg M_AXIS_TVALID,
     input wire M_AXIS_TREADY,
 	output wire [(C_M_AXIS_TDATA_WIDTH/8)-1 : 0] M_AXIS_TSTRB,
 	output reg  M_AXIS_TLAST,
@@ -43,14 +43,13 @@ module M00_AXIS #(
     end
 
     // Read operation
-    assign M_AXIS_TVALID = !empty;
     always @(posedge M_AXIS_ACLK) begin
         if (!M_AXIS_ARESETN) begin
             rd_ptr <= 0;
             M_AXIS_TDATA <= 0;
-			// M_AXIS_TVALID <= 0;
+			M_AXIS_TVALID <= 0;
         end else begin
-			// M_AXIS_TVALID <= !empty;
+			M_AXIS_TVALID <= !empty;
             M_AXIS_TDATA <= mem_data[rd_ptr];
             M_AXIS_TLAST <= mem_last[rd_ptr];
             M_AXIS_TUSER <= mem_user[rd_ptr];
@@ -65,7 +64,7 @@ module M00_AXIS #(
         if (!M_AXIS_ARESETN) begin
             fifo_cnt <= 0;
         end else begin
-            if (wr_en && !full && !(M_AXIS_TREADY && !empty) && fifo_cnt<=C_M_AXIS_FIFO_DEPTH) begin
+            if (wr_en && !full && !(M_AXIS_TREADY && !empty) && fifo_cnt<C_M_AXIS_FIFO_DEPTH) begin
                 fifo_cnt <= fifo_cnt + 1;
             end else if (M_AXIS_TREADY && !empty && !(wr_en && !full) && fifo_cnt>0) begin
                 fifo_cnt <= fifo_cnt - 1;
@@ -74,15 +73,17 @@ module M00_AXIS #(
     end
 
     // FIFO status flags
-    always @(posedge M_AXIS_ACLK) begin
-        if (!M_AXIS_ARESETN) begin
-            full <= 0;
-            empty <= 1;
-        end else begin
-            full <= (fifo_cnt >= C_M_AXIS_FIFO_DEPTH - 1);
-            empty <= (fifo_cnt <= 0);
-        end
-    end
+    assign full = (fifo_cnt > C_M_AXIS_FIFO_DEPTH) ? 1 : 0;
+    assign empty = (fifo_cnt < 1) ? 1 : 0;
+    // always @(posedge M_AXIS_ACLK) begin
+    //     if (!M_AXIS_ARESETN) begin
+    //         full <= 0;
+    //         empty <= 1;
+    //     end else begin
+    //         full <= (fifo_cnt >= C_M_AXIS_FIFO_DEPTH - 1);
+    //         empty <= (fifo_cnt <= 0);
+    //     end
+    // end
 
     // AXI Stream Interface
     // always @(posedge M_AXIS_ACLK) begin
