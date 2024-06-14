@@ -1,0 +1,112 @@
+# do ./tb/uvmf/project_benches/crop_video/sim/compile.do
+# UVMF_VIP_LIBRARY_HOME = D:/verification_ip
+# UVMF_PROJECT_DIR = D:/github
+# QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+# Start time: 10:30:02 on Jun 14,2024
+# vlog -sv ./tb/dpi/server_pkg.sv 
+# -- Compiling package server_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:30:02 on Jun 14,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+# Start time: 10:30:02 on Jun 14,2024
+# vlog -sv ./tb/dpi/FileIO_pkg.sv 
+# -- Compiling package FileIO_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:30:02 on Jun 14,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+# Start time: 10:30:02 on Jun 14,2024
+# vlog -sv ./tb/dpi/JSONParser_pkg.sv 
+# -- Compiling package JSONParser_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:30:02 on Jun 14,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+# Start time: 10:30:02 on Jun 14,2024
+# vlog -sv ./tb/dpi/server_api_pkg.sv 
+# -- Compiling package server_api_pkg
+# -- Importing package server_pkg
+# -- Importing package FileIO_pkg
+# -- Importing package JSONParser_pkg
+# ** Warning: ./tb/dpi/server_api_pkg.sv(150): (vlog-2875) Task "start" is being called in function "start".
+# ** Warning: ./tb/dpi/server_api_pkg.sv(155): (vlog-2875) Task "stop" is being called in function "stop".
+# ** Warning: ./tb/dpi/server_api_pkg.sv(183): (vlog-2875) Task "send_large" is being called in function "send".
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:30:02 on Jun 14,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 3
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+# Start time: 10:30:02 on Jun 14,2024
+# vlog -sv -timescale 1ps/1ps -suppress 2223,2286 ./hdl/M00_AXIS.v 
+# -- Compiling module M00_AXIS
+# 
+# Top level modules:
+# 	M00_AXIS
+# End time: 10:30:02 on Jun 14,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+# Start time: 10:30:02 on Jun 14,2024
+# vlog -sv -timescale 1ps/1ps -suppress 2223,2286 ./hdl/S00_AXIS.v 
+# -- Compiling module S00_AXIS
+# 
+# Top level modules:
+# 	S00_AXIS
+# End time: 10:30:02 on Jun 14,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+# Start time: 10:30:02 on Jun 14,2024
+# vlog -sv -timescale 1ps/1ps -suppress 2223,2286 ./hdl/crop_vid.v 
+# -- Compiling module crop_vid
+# 
+# Top level modules:
+# 	crop_vid
+# End time: 10:30:02 on Jun 14,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+# Start time: 10:30:03 on Jun 14,2024
+# vlog -sv -timescale 1ps/1ps -suppress 2223 -suppress 2286 "+incdir+C:\UVMF_2023.4\UVMF_2023.4/uvmf_base_pkg" -F C:\UVMF_2023.4\UVMF_2023.4/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:30:03 on Jun 14,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+# Start time: 10:30:03 on Jun 14,2024
+# vlog -sv -timescale 1ps/1ps -suppress 2223 -suppress 2286 "+incdir+C:\UVMF_2023.4\UVMF_2023.4/uvmf_base_pkg" -F C:\UVMF_2023.4\UVMF_2023.4/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f 
+# -- Compiling package uvmf_base_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:30:03 on Jun 14,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# ** Error: Cannot open macro file: D:/verification_ip/interface_packages/crop_video_config_pkg/compile.do
+# Error in macro ././tb/uvmf/project_benches/crop_video/sim/compile.do line 66
+# Cannot open macro file: D:/verification_ip/interface_packages/crop_video_config_pkg/compile.do
+#     while executing
+# "do $env(UVMF_VIP_LIBRARY_HOME)/interface_packages/crop_video_config_pkg/compile.do"
+#  do ./tb/uvmf/project_benches/crop_video/sim/run.do
+# -sv_lib ./tb/dpi/server
+# vsim -i -sv_seed random "+UVM_TESTNAME=AXI_Stream_pattern_test" "+UVM_VERBOSITY=UVM_HIGH" -coverage bcst fcover scover cond fsm stmt optimized_debug_top_tb -permit_unmatched_virtual_intf "+notimingchecks" -suppress 8887 -sv_lib ./tb/dpi/server -uvmcontrol=all -msgmode both -classdebug -assertdebug "+uvm_set_config_int=*,enable_transaction_viewing,1" -do " set NoQuitOnFinish 1; onbreak {resume}; run -all; do wave.do; set PrefSource(OpenOnBreak) 0; radix hex showbase; " 
+# Start time: 10:30:03 on Jun 14,2024
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Error: (vopt-13130) Failed to find design unit bcst.
+#         Searched libraries:
+#             work
+# Optimization failed
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=1, Warnings=0.
+# Error loading design
+# End time: 10:30:04 on Jun 14,2024, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 0
