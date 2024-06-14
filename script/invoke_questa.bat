@@ -3,4 +3,4 @@
 @set UVMF_HOME=C:\UVMF_2023.4\UVMF_2023.4
 cd .\tb\uvmf\project_benches\crop_video\sim
 vsim -c -do "do compile.do; do run.do
-pause
+pause 
