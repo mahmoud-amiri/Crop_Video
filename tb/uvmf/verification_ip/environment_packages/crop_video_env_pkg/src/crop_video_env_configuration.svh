@@ -128,7 +128,7 @@ extends uvmf_environment_configuration_base;
   // Interface initialization for local agents
      crop_video_config_agent_config.initialize( interface_activity[0], {environment_path,".crop_video_config_agent"}, interface_names[0]);
      crop_video_config_agent_config.initiator_responder = INITIATOR;
-     // crop_video_config_agent_config.has_coverage = 1;
+     crop_video_config_agent_config.has_coverage = 1;
      crop_video_axis_snk_agent_config.initialize( interface_activity[1], {environment_path,".crop_video_axis_snk_agent"}, interface_names[1]);
      crop_video_axis_snk_agent_config.initiator_responder = INITIATOR;
      // crop_video_axis_snk_agent_config.has_coverage = 1;

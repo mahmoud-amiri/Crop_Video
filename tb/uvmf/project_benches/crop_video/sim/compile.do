@@ -48,16 +48,16 @@ vlog -sv $env(UVMF_PROJECT_DIR)/../../../dpi/server_api_pkg.sv
 vlib work 
 # pragma uvmf custom dut_compile_dofile_target begin
 # UVMF_CHANGE_ME : Add commands to compile your dut here, replacing the default examples
-vlog -sv -timescale 1ps/1ps -suppress 2223,2286 $env(UVMF_PROJECT_DIR)/../../../../hdl/M00_AXIS.v
-vlog -sv -timescale 1ps/1ps -suppress 2223,2286 $env(UVMF_PROJECT_DIR)/../../../../hdl/S00_AXIS.v
-vlog -sv -timescale 1ps/1ps -suppress 2223,2286 $env(UVMF_PROJECT_DIR)/../../../../hdl/crop_vid.v
+vlog -sv -timescale 1ps/1ps -suppress 2223,2286  $env(UVMF_PROJECT_DIR)/../../../../hdl/M00_AXIS.v
+vlog -sv -timescale 1ps/1ps -suppress 2223,2286  $env(UVMF_PROJECT_DIR)/../../../../hdl/S00_AXIS.v
+vlog -sv -timescale 1ps/1ps -suppress 2223,2286  $env(UVMF_PROJECT_DIR)/../../../../hdl/crop_vid.v
 # pragma uvmf custom dut_compile_dofile_target end
 
 ###################################################################
 ## COMPILE UVMF BASE/COMMON SOURCE CODE
 ###################################################################
-vlog -sv -timescale 1ps/1ps -suppress 2223 -suppress 2286 +incdir+$env(UVMF_HOME)/uvmf_base_pkg -F $env(UVMF_HOME)/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f
-vlog -sv -timescale 1ps/1ps -suppress 2223 -suppress 2286 +incdir+$env(UVMF_HOME)/uvmf_base_pkg -F $env(UVMF_HOME)/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f
+vlog -sv -timescale 1ps/1ps -suppress 2223 -suppress 2286  +incdir+$env(UVMF_HOME)/uvmf_base_pkg -F $env(UVMF_HOME)/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f
+vlog -sv -timescale 1ps/1ps -suppress 2223 -suppress 2286  +incdir+$env(UVMF_HOME)/uvmf_base_pkg -F $env(UVMF_HOME)/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f
 
 
 ###################################################################
@@ -85,5 +85,8 @@ vlog -sv -timescale 1ps/1ps -suppress 2223 -suppress 2286  +incdir+$env(UVMF_PRO
 ###################################################################
 ## OPTIMIZATION
 ###################################################################
-vopt          hvl_top hdl_top   -o optimized_batch_top_tb
-vopt  +acc    hvl_top hdl_top   -o optimized_debug_top_tb
+#vopt  hvl_top hdl_top   -o optimized_batch_top_tb
+#vopt  +acc   hvl_top hdl_top   -o optimized_debug_top_tb
+
+vopt +cover=sbfec +acc -o optimized_batch_top_tb hvl_top hdl_top
+vopt +cover=sbfec +acc -o optimized_debug_top_tb hvl_top hdl_top
