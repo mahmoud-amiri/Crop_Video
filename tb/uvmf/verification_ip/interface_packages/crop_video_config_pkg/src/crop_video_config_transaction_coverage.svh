@@ -21,6 +21,13 @@ class crop_video_config_transaction_coverage  extends uvm_subscriber #(.T(crop_v
   T coverage_trans;
 
   // pragma uvmf custom class_item_additional begin
+  int min_x;
+  int max_x;
+  int min_y;
+  int max_y;
+
+// Constructor
+
   // pragma uvmf custom class_item_additional end
   
   // ****************************************************************************
@@ -29,10 +36,49 @@ class crop_video_config_transaction_coverage  extends uvm_subscriber #(.T(crop_v
     // UVMF_CHANGE_ME : Add coverage bins, crosses, exclusions, etc. according to coverage needs.
     option.auto_bin_max=1024;
     option.per_instance=1;
-    crop_x: coverpoint coverage_trans.crop_x;
-    crop_y: coverpoint coverage_trans.crop_y;
-    crop_width: coverpoint coverage_trans.crop_width;
-    crop_height: coverpoint coverage_trans.crop_height;
+    crop_x: coverpoint coverage_trans.crop_x{
+      bins min_bin = {min_x};
+      bins max_bin = {max_x};
+      bins range1  = {[min_x + 1 : (min_x + (max_x - min_x)/4)]};
+      bins range2  = {[(min_x + (max_x - min_x)/4 + 1) : (min_x + (max_x - min_x)/2)]};
+      bins range3  = {[(min_x + (max_x - min_x)/2 + 1) : (min_x + 3*(max_x - min_x)/4)]};
+      bins range4  = {[(min_x + 3*(max_x - min_x)/4 + 1) : (max_x - 1)]};
+    }
+
+    crop_y: coverpoint coverage_trans.crop_y{
+      bins min_bin = {min_y};
+      bins max_bin = {max_y};
+      bins range1  = {[min_y + 1 : (min_y + (max_y - min_y)/4)]};
+      bins range2  = {[(min_y + (max_y - min_y)/4 + 1) : (min_y + (max_y - min_y)/2)]};
+      bins range3  = {[(min_y + (max_y - min_y)/2 + 1) : (min_y + 3*(max_y - min_y)/4)]};
+      bins range4  = {[(min_y + 3*(max_y - min_y)/4 + 1) : (max_y - 1)]};
+    }
+
+    crop_width: coverpoint coverage_trans.crop_width{
+      bins min_bin = {min_x};
+      bins max_bin = {max_x};
+      bins range1  = {[min_x + 1 : (min_x + (max_x - min_x)/4)]};
+      bins range2  = {[(min_x + (max_x - min_x)/4 + 1) : (min_x + (max_x - min_x)/2)]};
+      bins range3  = {[(min_x + (max_x - min_x)/2 + 1) : (min_x + 3*(max_x - min_x)/4)]};
+      bins range4  = {[(min_x + 3*(max_x - min_x)/4 + 1) : (max_x - 1)]};
+    }
+
+    crop_height: coverpoint coverage_trans.crop_height{
+      bins min_bin = {min_y};
+      bins max_bin = {max_y};
+      bins range1  = {[min_y + 1 : (min_y + (max_y - min_y)/4)]};
+      bins range2  = {[(min_y + (max_y - min_y)/4 + 1) : (min_y + (max_y - min_y)/2)]};
+      bins range3  = {[(min_y + (max_y - min_y)/2 + 1) : (min_y + 3*(max_y - min_y)/4)]};
+      bins range4  = {[(min_y + 3*(max_y - min_y)/4 + 1) : (max_y - 1)]};
+    }
+
+
+    // Define cross coverage
+    cross_crop_x_y: cross crop_x, crop_y;
+    cross_crop_width_height: cross crop_width, crop_height;
+    cross_all: cross crop_x, crop_y, crop_width, crop_height;
+
+    
     // pragma uvmf custom covergroup end
   endgroup
 
@@ -40,10 +86,13 @@ class crop_video_config_transaction_coverage  extends uvm_subscriber #(.T(crop_v
   // FUNCTION : new()
   // This function is the standard SystemVerilog constructor.
   //
-  function new(string name="", uvm_component parent=null);
-    super.new(name,parent);
-    crop_video_config_transaction_cg=new;
-    `uvm_warning("COVERAGE_MODEL_REVIEW", "A covergroup has been constructed which may need review because of either generation or re-generation with merging.  Please note that transaction variables added as a result of re-generation and merging are not automatically added to the covergroup.  Remove this warning after the covergroup has been reviewed.")
+    function new(string name, uvm_component parent, int min_x = 0, int max_x = 1920, int min_y = 0, int max_y = 1080);
+    super.new(name, parent);
+    this.min_x = min_x;
+    this.max_x = max_x;
+    this.min_y = min_y;
+    this.max_y = max_y;
+    crop_video_config_transaction_cg = new;
   endfunction
 
   // ****************************************************************************
